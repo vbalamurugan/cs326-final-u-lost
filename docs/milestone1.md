@@ -4,6 +4,7 @@ Sign in Page:
 Sign up Page:
 <img width="1206" alt="Screen Shot 2022-03-11 at 1 24 38 PM" src="https://user-images.githubusercontent.com/67796130/157928511-51587b9f-50ed-4ede-8bf0-e56fef975de9.png">
 
+![Screenshot - Wireframe](https://user-images.githubusercontent.com/98621288/157929172-eff6ac66-acc7-4e4a-8c8b-a792902bda3f.png)
 
 These are the categories of the Lost items:
 <img width="1296" alt="Screen Shot 2022-03-11 at 12 43 09 PM" src="https://user-images.githubusercontent.com/59256553/157921340-2316c176-6f11-435e-a594-20dcd3511aa9.png">
