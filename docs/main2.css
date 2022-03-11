@@ -1,0 +1,36 @@
+body {background-color: #881c1c;}
+
+.container-bg {
+  margin-top: 100px;
+  background: white;
+  height: 600px;
+}
+
+h1.text-center{
+  color: black;
+}
+
+p{
+  top: 10px;
+  right: 10px;
+  padding: 2px;
+  border: 1px solid blue;
+  display: inline-block;
+  background: #E3F2FD;
+}
+
+div.parent{
+  height: 75%;
+  width: 100%;
+  border: 1px solid black;
+  margin: 0 auto;
+}
+  
+p{
+  top: 10px;
+  right: 10px;
+  padding: 2px;
+  border: 1px solid blue;
+  display: inline-block;
+  background: #E3F2FD;
+}
