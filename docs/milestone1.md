@@ -1,8 +1,9 @@
 Sign in Page:
-<img width="1206" alt="Screen Shot 2022-03-11 at 1 14 35 PM" src="https://user-images.githubusercontent.com/67796130/157926100-adfc7dc9-fd2c-4744-a6ef-bdf878772b3e.png">
+<img width="1206" alt="Screen Shot 2022-03-11 at 1 24 23 PM" src="https://user-images.githubusercontent.com/67796130/157928482-3777071a-ca4c-4f68-bf7f-24dabf7c0718.png">
 
 Sign up Page:
-<img width="1206" alt="Screen Shot 2022-03-11 at 1 14 41 PM" src="https://user-images.githubusercontent.com/67796130/157926088-050ea6f0-0140-4aef-840a-484847bcd11f.png">
+<img width="1206" alt="Screen Shot 2022-03-11 at 1 24 38 PM" src="https://user-images.githubusercontent.com/67796130/157928511-51587b9f-50ed-4ede-8bf0-e56fef975de9.png">
+
 
 These are the categories of the Lost items:
 <img width="1296" alt="Screen Shot 2022-03-11 at 12 43 09 PM" src="https://user-images.githubusercontent.com/59256553/157921340-2316c176-6f11-435e-a594-20dcd3511aa9.png">
