@@ -1,0 +1,80 @@
+body {background-color: #881c1c;}
+
+.Item_box{
+  width: 1000px;
+  height: 500px;
+  border: 5px solid black;
+  padding: 50px;
+  margin-top: 75px;
+  background-color: white;
+}
+.Gap{
+  width: 800px; 
+  height: 50px;
+  background-color: white;
+}
+.Honesty{
+  color: black;
+  font-size: 75px;
+}
+
+.electronics{
+  color: white;
+  font-size: 40px;
+  width: 200px; 
+  height: 150px;
+  background-color: #881c1c;
+  float: left;
+  border: 3px solid black !important;
+}
+
+
+.id_Card{
+  color: white;
+  font-size: 40px;
+  width: 200px; 
+  height: 150px;
+  background-color: #881c1c;
+  float: middle;
+  border: 3px solid black !important;
+}
+.keys{
+  color: white;
+  font-size: 40px;
+  width: 200px; 
+  height: 150px;
+  background-color: #881c1c;
+  float: right;
+  margin-top: -157px;
+  border: 3px solid black !important;
+}
+
+.books{
+  color: white;
+  font-size: 40px;
+  width: 200px; 
+  height: 150px;
+  background-color: #881c1c;
+  float: left;
+  border: 3px solid black !important;
+}
+
+.clothing{
+  color: white;
+  font-size: 40px;
+  width: 200px; 
+  height: 150px;
+  background-color: #881c1c;
+  float: middle;
+  border: 3px solid black !important;
+}
+.other{
+  color: white;
+  font-size: 40px;
+  width: 200px; 
+  height: 150px;
+  background-color: #881c1c;
+  margin-top: -157px;
+  float: right;
+  border: 3px solid black !important;
+}

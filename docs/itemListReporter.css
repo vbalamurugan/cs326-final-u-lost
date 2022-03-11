@@ -1,0 +1,23 @@
+span {
+    white-space: pre-wrap;
+  }
+
+input {
+    margin: 0.5rem;
+}
+
+.cell {
+    border: 20px;
+}
+
+.header {
+    font-size: 20px;
+    background-color: #881c1c;
+    padding: 1rem;
+    color: white;
+}
+
+.butt {
+    background-color: #881c1c;
+    color: white
+}
