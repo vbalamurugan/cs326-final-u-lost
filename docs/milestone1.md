@@ -51,10 +51,14 @@ This is what Finder will see after choosing a category:
 <img width="1280" alt="Screen Shot 2022-03-11 at 13 08 11" src="https://user-images.githubusercontent.com/52909523/157925811-16ca381a-9435-43e6-aece-76558811982a.png">
 
 When Finder clicks on a row, the item information will open up in a modal:
-<img width="1280" alt="Screen Shot 2022-03-11 at 13 08 28" src="https://user-images.githubusercontent.com/52909523/157925909-c3d44f5b-32dd-4c8b-91a5-f760f1e0f78f.png">
+<img width="1280" alt="Screen Shot 2022-03-17 at 15 43 39" src="https://user-images.githubusercontent.com/52909523/158893261-502f9047-5948-4104-9828-3becb2e74448.png">
 
 This is what Reporter will see after choosing a category:
 <img width="1280" alt="Screen Shot 2022-03-11 at 13 08 50" src="https://user-images.githubusercontent.com/52909523/157925925-5800ca65-88a6-4ed5-8c21-8366dc1cc8e8.png">
 
 When Reporter clicks on the Add button, they will be able to input details:
 <img width="1280" alt="Screen Shot 2022-03-11 at 13 09 01" src="https://user-images.githubusercontent.com/52909523/157925928-d307e87d-77c9-42e6-b8f4-35d81f0bfb7e.png">
+
+When Reporter clicks on a r<img width="1280" alt="Screen Shot 2022-03-17 at 15 48 20" src="https://user-images.githubusercontent.com/52909523/158893326-4bda258d-99e7-43c9-a491-c066b0251ec4.png">
+ow, the item information will open up in a modal:
+
