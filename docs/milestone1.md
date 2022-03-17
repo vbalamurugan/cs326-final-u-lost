@@ -59,6 +59,7 @@ This is what Reporter will see after choosing a category:
 When Reporter clicks on the Add button, they will be able to input details:
 <img width="1280" alt="Screen Shot 2022-03-11 at 13 09 01" src="https://user-images.githubusercontent.com/52909523/157925928-d307e87d-77c9-42e6-b8f4-35d81f0bfb7e.png">
 
-When Reporter clicks on a r<img width="1280" alt="Screen Shot 2022-03-17 at 15 48 20" src="https://user-images.githubusercontent.com/52909523/158893326-4bda258d-99e7-43c9-a491-c066b0251ec4.png">
-ow, the item information will open up in a modal:
+When Reporter clicks on a row, the item information will open up in a modal:
+<img width="1280" alt="Screen Shot 2022-03-17 at 15 48 20" src="https://user-images.githubusercontent.com/52909523/158893326-4bda258d-99e7-43c9-a491-c066b0251ec4.png">
+
 
