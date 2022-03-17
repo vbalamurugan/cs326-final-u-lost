@@ -55,28 +55,10 @@ body {background-color: #881c1c;}
 
 .reporter:hover{
   color: white;
-  font-family: 'Nunito', sans-serif;
-  font-size: 40px;
-  width: 200px; 
-  height: 70px;
-  background-color: #881c1c;
-  float: middle;
-  margin-left: 100px;
-  margin-top: 25px;
-  text-align: center;
   text-decoration: none;
 }
 
 .finder:hover{
   color: white;
-  font-family: 'Nunito', sans-serif;
-  font-size: 40px;
-  width: 200px; 
-  height: 70px;
-  background-color: #881c1c;
-  float: middle;
-  margin-left: 100px;
-  margin-top: 25px;
-  text-align: center;
   text-decoration: none;
 }
