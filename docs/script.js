@@ -1,5 +1,5 @@
-document.querySelector('.img-btn').addEventListener('click', function()
-	{
-		document.querySelector('.cont').classList.toggle('s-signup')
-	}
-);
+function flip() {
+    document.querySelector('.cover').classList.toggle('signuppage')
+}
+
+document.querySelector('.sign-in-butn-btn').addEventListener('click', flip);
