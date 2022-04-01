@@ -1,0 +1,47 @@
+body {
+    background-color: #881c1c;
+}
+
+.Item_box {
+    width: 500px;
+    height: 400px;
+    padding: 50px;
+    margin-bottom: 35px;
+    margin-left: 385px;
+    background-color: white;
+}
+
+.Gap {
+    width: 800px;
+    height: 50px;
+    background-color: white;
+}
+
+.title {
+    color: white;
+    font-family: 'Nunito', sans-serif;
+    font-size: 50px;
+    display: center;
+    margin-left: 490px;
+    margin-top: 40px;
+}
+
+.selection {
+    color: white;
+    font-family: 'Nunito', sans-serif;
+    font-size: 40px;
+    width: 200px;
+    height: 70px;
+    background-color: #881c1c;
+    float: middle;
+    margin-left: 100px;
+    margin-top: 25px;
+    margin-bottom: 80px;
+    text-align: center;
+    text-decoration: none;
+}
+
+.selection:hover {
+    color: white;
+    text-decoration: none;
+}
