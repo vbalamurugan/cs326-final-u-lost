@@ -38,15 +38,15 @@ async function basicServer(request, response) {
         const person = await crud.readPerson(query.name);
         response.write(person ? JSON.stringify(person) : '{}');
         response.end();
-    } else if (method === 'PUT' && pathname.startsWith('/person/update')) {
+    } else if (method === 'PUT' && pathname.startsWith('/reporter/update')) {
         response.writeHead(200, { 'Content-Type': 'application/json' });
-        const person = await crud.updatePerson(query.name, query.age);
-        response.write(person ? JSON.stringify(person) : '{}');
+        const item = await crud.updateItem(query.category, query.location, query.contact, query.time, query.image);
+        response.write(person ? JSON.stringify(item) : '{}');
         response.end();
-    } else if (method === 'DELETE' && pathname.startsWith('/person/delete')) {
+    } else if (method === 'DELETE' && pathname.startsWith('/reporter/delete')) {
         response.writeHead(200, { 'Content-Type': 'application/json' });
-        const person = await crud.deletePerson(query.name);
-        response.write(person ? JSON.stringify(person) : '{}');
+        const item = await crud.deleteItem(query.id);
+        response.write(person ? JSON.stringify(item) : '{}');
         response.end();
     } else if (method === 'GET' && pathname.startsWith('/person/all')) {
         response.writeHead(200, { 'Content-Type': 'application/json' });

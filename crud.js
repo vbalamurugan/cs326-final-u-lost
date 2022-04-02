@@ -44,10 +44,41 @@ export async function createItem(category, location, contact, time, image, id) {
     try {
         const data = await readFile(JSONItemfile, 'utf8');
         const items = JSON.parse(data);
-        console.log(category);
         items[id] = newItem;
         await writeFile(JSONItemfile, JSON.stringify(items));
         return newItem;
+    } catch (err) {
+        console.error('Error writing to file: ', err);
+        return undefined;
+    }
+}
+
+export async function updateItem(category, location, contact, time, image, id) {
+    try {
+        const data = await readFile(JSONItemfile, 'utf8');
+        const items = JSON.parse(data);
+        const item = items[id];
+        item.category = category;
+        item.location = location;
+        item.contact = contact;
+        item.time = time;
+        item.image = image;
+        await writeFile(JSONItemfile, JSON.stringify(items));
+        return item;
+    } catch (err) {
+        console.error('Error writing to file: ', err);
+        return undefined;
+    }
+}
+
+export async function deleteItem(id) {
+    try {
+        const data = await readFile(JSONItemfile, 'utf8');
+        const items = JSON.parse(data);
+        const item = items[id];
+        delete items[id];
+        await writeFile(JSONItemfile, JSON.stringify(items));
+        return item;
     } catch (err) {
         console.error('Error writing to file: ', err);
         return undefined;

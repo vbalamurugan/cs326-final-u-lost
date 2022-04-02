@@ -1,7 +1,6 @@
 import * as crud from "./crud.js";
 
 document.getElementById("addItem").addEventListener("click", async (e) => {
-    // console.log('Hi');
     const category = document.getElementById("category").value;
     const time = document.getElementById("time").value;
     const location = document.getElementById("location").value;
