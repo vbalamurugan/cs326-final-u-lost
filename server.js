@@ -26,7 +26,14 @@ async function basicServer(request, response) {
         console.log(JSON.stringify(loginthing));
         response.write(JSON.stringify(loginthing));
         response.end();
-    } else if (method === 'GET' && pathname.startsWith('/person/read')) {
+    } else if (method === 'POST' && pathname.startsWith('/reporter/create')) {
+        response.writeHead(200, { 'Content-Type': 'application/json' });
+        const newItem = await crud.createItem(query.category, query.location, query.contact, query.time, query.image, query.id);
+        console.log(JSON.stringify(newItem));
+        response.write(JSON.stringify(newItem));
+        response.end();
+    }
+    else if (method === 'GET' && pathname.startsWith('/person/read')) {
         response.writeHead(200, { 'Content-Type': 'application/json' });
         const person = await crud.readPerson(query.name);
         response.write(person ? JSON.stringify(person) : '{}');
