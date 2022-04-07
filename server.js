@@ -32,11 +32,10 @@ async function basicServer(request, response) {
         console.log(JSON.stringify(newItem));
         response.write(JSON.stringify(newItem));
         response.end();
-    }
-    else if (method === 'GET' && pathname.startsWith('/person/read')) {
+    } else if (method === 'GET' && pathname.startsWith('/login/read')) {
         response.writeHead(200, { 'Content-Type': 'application/json' });
-        const person = await crud.readPerson(query.name);
-        response.write(person ? JSON.stringify(person) : '{}');
+        const login = await crud.readLogin(query.name);
+        response.write(login ? JSON.stringify(login) : '{}');
         response.end();
     } else if (method === 'PUT' && pathname.startsWith('/reporter/update')) {
         response.writeHead(200, { 'Content-Type': 'application/json' });

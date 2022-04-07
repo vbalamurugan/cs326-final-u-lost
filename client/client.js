@@ -6,16 +6,16 @@ function flip() {
 
 document.querySelector('.sign-in-butn-btn').addEventListener('click', flip);
 
-document.getElementById("signupbtn").addEventListener("click", async (e) => {
+document.getElementById("signupbtn").addEventListener("click", async(e) => {
     const email = document.getElementById("email1").value;
     const password = document.getElementById("passcode1").value;
     const loginthing = await crud.createLogin(email, password);
     flip();
 });
 
-document.getElementById("submit").addEventListener("click", async (e) => {
+document.getElementById("submit").addEventListener("click", async(e) => {
     const email = document.getElementById("email").value;
     const passcode = document.getElementById("passcode").value;
     const loginthing = await crud.readLogin(email, passcode);
-    flip();
+
 });

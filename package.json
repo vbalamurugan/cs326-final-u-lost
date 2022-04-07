@@ -1,12 +1,28 @@
 {
-    "name": "crud",
-    "version": "1.0.0",
-    "description": "",
-    "main": "crud.js",
-    "type": "module",
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
-    },
-    "author": "Tim Richards",
-    "license": "ISC"
+  "name": "ulost",
+  "version": "1.0.0",
+  "description": "project",
+  "main": "crud.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "Tim Richards",
+  "license": "ISC",
+  "directories": {
+    "doc": "docs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vbalamurugan/cs326-final-u-lost.git"
+  },
+  "bugs": {
+    "url": "https://github.com/vbalamurugan/cs326-final-u-lost/issues"
+  },
+  "homepage": "https://github.com/vbalamurugan/cs326-final-u-lost#readme",
+  "dependencies": {
+    "express": "^4.17.3",
+    "morgan": "^1.10.0"
+  }
 }

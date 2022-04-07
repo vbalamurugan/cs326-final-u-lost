@@ -40,14 +40,14 @@ export async function createLogin(email, password) {
 }
 
 export async function readLogin(email) {
-  try {
-    const data = await readFile(JSONfile, 'utf8');
-    const loginthings = JSON.parse(data);
-    return loginthings[email];
-  } catch (err) {
-    console.error('Error reading from file: ', err);
-    return undefined;
-  }
+    try {
+        const data = await readFile(JSONLoginfile, 'utf8');
+        const loginthings = JSON.parse(data);
+        return loginthings[email];
+    } catch (err) {
+        console.error('Error reading from file: ', err);
+        return undefined;
+    }
 }
 
 export async function createItem(category, location, contact, time, image, id) {
