@@ -1,10 +1,1 @@
-{
-    "sahil": {
-        "email": "sahil",
-        "password": "111"
-    },
-    "sidharth": {
-        "email": "sidharth",
-        "password": "Hitosid"
-    }
-}
+{"sahil":{"email":"sahil","password":"111"},"sidharth":{"email":"sidharth","password":"Hitosid"},"nishant":{"email":"nishant","password":"abcd"}}

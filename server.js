@@ -62,6 +62,15 @@ async function createLogin(response, email, password) {
     }
 }
 
+async function readLogin(response, id, email, password) {
+  if (idExists(id)) {
+    response.json({ email: email, password: password });
+  } else {
+    // 404 - Not Found
+    response.json({ error: `Item '${id}' Not Found` });
+  }
+}
+
 async function createItem(response, category, location, contact, time, image, id) {
     if (id === undefined) {
         // 400 - Bad Request
@@ -117,6 +126,11 @@ app.use('/client', express.static('client'));
 app.post('/login/create', (req, res) => {
     const options = req.body;
     createLogin(res, options.email, options.password);
+});
+
+app.get('/login/read', (req, res) => {
+    const options = req.body;
+    readLogin(res, options.id, options.email, options.password);
 });
 
 app.post('/reporter/create', (req, res) => {

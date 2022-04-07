@@ -17,8 +17,4 @@ document.getElementById("submit").addEventListener("click", async(e) => {
     const email = document.getElementById("email").value;
     const passcode = document.getElementById("passcode").value;
     const loginthing = await crud.readLogin(email, passcode);
-<<<<<<< HEAD
-=======
-
->>>>>>> f7e330e1f82eec183fea118c1b0a678119bcb591
 });
