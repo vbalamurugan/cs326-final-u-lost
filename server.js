@@ -1,89 +1,144 @@
-import { readFile } from 'fs/promises';
-import * as http from 'http';
-import * as url from 'url';
-import * as crud from './crud.js';
+// https://expressjs.com
+// https://expressjs.com/en/resources/middleware/morgan.html
+import express from 'express';
+import logger from 'morgan';
+import { readFile, writeFile } from 'fs/promises';
 
-// The purpose of this server is to maintain a single data object of a person
-// and their age. This data object is stored in the global variable `data`.
+const JSONItemfile = 'item.json';
+const JSONLoginfile = 'login.json';
 
-// Data maintained by this server.
-// A basic server function to implement a simple RESTful API.
-async function basicServer(request, response) {
-    // Parse the URL to get the pathname and the query parameters.
-    const parsedUrl = url.parse(request.url, true);
-    const pathname = parsedUrl.pathname;
-    const query = parsedUrl.query;
+let items = {};
+let logins = {};
 
-    // Grab the HTTP method.
-    const method = request.method;
-
-    // Implement each of the CRUD operations.
-    //   NOTE: for clarity we have not implemented any error checking. You will
-    //         need to add error checking in your team project.
-    if (method === 'POST' && pathname.startsWith('/login/create')) {
-        response.writeHead(200, { 'Content-Type': 'application/json' });
-        const loginthing = await crud.createLogin(query.email, query.password);
-        console.log(JSON.stringify(loginthing));
-        response.write(JSON.stringify(loginthing));
-        response.end();
-    } else if (method === 'POST' && pathname.startsWith('/reporter/create')) {
-        response.writeHead(200, { 'Content-Type': 'application/json' });
-        const newItem = await crud.createItem(query.category, query.location, query.contact, query.time, query.image, query.id);
-        console.log(JSON.stringify(newItem));
-        response.write(JSON.stringify(newItem));
-        response.end();
-    }
-    else if (method === 'GET' && pathname.startsWith('/person/read')) {
-        response.writeHead(200, { 'Content-Type': 'application/json' });
-        const person = await crud.readPerson(query.name);
-        response.write(person ? JSON.stringify(person) : '{}');
-        response.end();
-    } else if (method === 'PUT' && pathname.startsWith('/reporter/update')) {
-        response.writeHead(200, { 'Content-Type': 'application/json' });
-        const item = await crud.updateItem(query.category, query.location, query.contact, query.time, query.image);
-        response.write(person ? JSON.stringify(item) : '{}');
-        response.end();
-    } else if (method === 'DELETE' && pathname.startsWith('/reporter/delete')) {
-        response.writeHead(200, { 'Content-Type': 'application/json' });
-        const item = await crud.deleteItem(query.id);
-        response.write(person ? JSON.stringify(item) : '{}');
-        response.end();
-    } else if (method === 'GET' && pathname.startsWith('/person/all')) {
-        response.writeHead(200, { 'Content-Type': 'application/json' });
-        const people = await crud.readAllPeople();
-        response.write(JSON.stringify(people));
-        response.end();
-    } else if (method === 'DELETE' && pathname.startsWith('/person/all-delete')) {
-        response.writeHead(200, { 'Content-Type': 'application/json' });
-        const empty = await crud.deleteAllPeople();
-        response.write(JSON.stringify(empty));
-        response.end();
-    } else {
-        try {
-            // Determine the content type of the requested file (if it is a file).
-            let type = '';
-            if (pathname.endsWith('.css')) {
-                type = 'text/css';
-            } else if (pathname.endsWith('.js')) {
-                type = 'text/javascript';
-            } else if (pathname.endsWith('.html')) {
-                type = 'text/html';
-            } else {
-                type = 'text/plain';
-            }
-            // -> client/index.html
-            const data = await readFile(pathname.substring(1), 'utf8');
-            response.writeHead(200, { 'Content-Type': type });
-            response.write(data);
-        } catch (err) {
-            response.statusCode = 404;
-            response.write('Not found');
-        }
-        response.end();
+async function reloadItems(filename) {
+    try {
+        const data = await readFile(filename, { encoding: 'utf8' });
+        items = JSON.parse(data);
+    } catch (err) {
+        items = {};
     }
 }
 
-// Start the server on port 3000.
-http.createServer(basicServer).listen(3000, () => {
-    console.log('Server started on port 3000');
+async function saveItems() {
+    try {
+        const data = JSON.stringify(items);
+        await writeFile(JSONItemfile, data, { encoding: 'utf8' });
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+async function reloadLogins(filename) {
+    try {
+        const data = await readFile(filename, { encoding: 'utf8' });
+        logins = JSON.parse(data);
+    } catch (err) {
+        logins = {};
+    }
+}
+
+async function saveLogins() {
+    try {
+        const data = JSON.stringify(logins);
+        await writeFile(JSONLoginfile, data, { encoding: 'utf8' });
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+function idExists(id) {
+    return id in items;
+}
+
+async function createLogin(response, email, password) {
+    if (email === undefined) {
+        // 400 - Bad Request
+        response.status(400).json({ error: 'Email is required' });
+    } else {
+        await reloadLogins(JSONLoginfile);
+        logins[email] = { email: email, password: password };
+        await saveLogins();
+        response.json({ email: email, password: password });
+    }
+}
+
+async function createItem(response, category, location, contact, time, image, id) {
+    if (id === undefined) {
+        // 400 - Bad Request
+        response.status(400).json({ error: 'ID is required' });
+    } else {
+        await reloadItems(JSONItemfile);
+        items[id] = { category: category, location: location, contact: contact, time: time, image: image };
+        await saveItems();
+        response.json({ category: category, location: location, contact: contact, time: time, image: image });
+    }
+}
+
+async function updateItem(response, category, location, contact, time, image, id) {
+    await reloadItems(JSONItemfile);
+    console.log(typeof (id));
+    if (idExists(id)) {
+        console.log('HI');
+        items[id] = { category: category, location: location, contact: contact, time: time, image: image };
+        await saveItems();
+        response.json({ category: category, location: location, contact: contact, time: time, image: image });
+    } else {
+        response.json({ error: `Item '${id}' Not Found` });
+    }
+}
+
+async function deleteItem(response, id) {
+    await reloadItems(JSONItemfile);
+    if (idExists(id)) {
+        const category = items[id].category;
+        const location = items[id].location;
+        const contact = items[id].contact;
+        const time = items[id].time;
+        const image = items[id].image;
+        delete items[id];
+        await saveItems();
+        response.json({ category: category, location: location, contact: contact, time: time, image: image });
+    } else {
+        response.json({ error: `Item '${id}' Not Found` });
+    }
+}
+
+const app = express();
+const port = 3000;
+
+app.use(logger('dev'));
+
+// NEW: Add json and urlencoded middleware
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
+app.use('/client', express.static('client'));
+
+app.post('/login/create', (req, res) => {
+    const options = req.body;
+    createLogin(res, options.email, options.password);
+});
+
+app.post('/reporter/create', (req, res) => {
+    const options = req.body;
+    createItem(res, options.category, options.location, options.contact, options.time, options.image, options.id);
+});
+
+app.put('/reporter/update', (req, res) => {
+    const options = req.body;
+    updateItem(res, options.category, options.location, options.contact, options.time, options.image, options.id);
+});
+
+app.delete('/reporter/delete', (req, res) => {
+    const options = req.body;
+    deleteItem(res, options.id);
+});
+
+app.get('*', (req, res) => {
+    console.log(req.path);
+    res.status(404).json({ message: 'Unknown Request' });
+});
+
+app.listen(port, () => {
+    console.log(`Example app listening at http://localhost:${port}`);
 });

@@ -33,8 +33,6 @@
             <td data-bs-toggle="modal" data-bs-target="#exampleModal">
                 <span> Category: Electronics </span>
                 <span> Item Name: Laptop </span>
-                <button>Update</button>
-                <button>Delete</button>
             </td>
         </tr>
         <tr class="cell">
@@ -60,17 +58,28 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>Category: Books</p>
-                    <p>Name: Nishant Jain</p>
-                    <p>Location: Haigis Mall</p>
-                    <p>Time: 12pm EST</p>
-                    <p>Contact Information: 9822022080</p>
-                    <p>Image: </p>
-                    <img src="CategoryImages/kimberly-farmer-lUaaKCUANVI-unsplash.jpg"
-                        class="card-img-top img-fluid border adj_h" alt="No Pic">
-                    <p>Comments: Thank You!</p>
+                    <form>
+                        <label> ID: </label>
+                        <input id="id2">
+                        <br>
+                        <label> Category: </label>
+                        <input id="category" value="Books">
+                        <br>
+                        <label> Location: </label>
+                        <input id="location" value="Haigis Mall">
+                        <br>
+                        <label> Time: </label>
+                        <input id="time" value="12pm EST">
+                        <br>
+                        <label> Contact Information: </label>
+                        <input id="contact" value="9822022080">
+                        <br>
+                        <label> Image: </label>
+                    </form>
                 </div>
                 <div class="modal-footer">
+                    <button id="deleteButton">Delete</button>
+                    <button id="updateButton">Update</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
