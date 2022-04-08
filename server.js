@@ -69,15 +69,9 @@ async function createLogin(response, email, password) {
 
 async function readLogin(response, email, password) {
     await reloadLogins(JSONLoginfile);
-    // console.log(email);
-    // console.log(email in logins);
-    // console.log(logins);
     if (emailExists(email)) {
-        // console.log("Nishant");
         response.json({ email: email, password: password });
     } else {
-        // 404 - Not Found
-        // console.log("failword");
         response.json({ error: `Item '${email}' Not Found` });
     }
 }
