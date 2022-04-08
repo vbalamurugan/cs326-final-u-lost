@@ -16,3 +16,12 @@
 
 # API Documentation
 
+## Requests
+*"/login/create" 
+*"/login/read"
+*"/reporter/create"
+*"/reporter/update"
+*"/reporter/delete"
+*"/reporter/read"
+*"/finder/read"
+
