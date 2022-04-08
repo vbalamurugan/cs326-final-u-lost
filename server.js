@@ -59,22 +59,28 @@ async function createLogin(response, email, password) {
     if (email === undefined) {
         // 400 - Bad Request
         response.status(400).json({ error: 'Email is required' });
-    } else {
+    }
+    else {
         await reloadLogins(JSONLoginfile);
-        logins[email] = { email: email, password: password };
-        await saveLogins();
-        response.json({ email: email, password: password });
+        if(!emailExists){
+            logins[email] = { email: email, password: password };
+            await saveLogins();
+            response.status(200).json({ email: email, password: password });
+        }
+        else{
+            response.status(403).json({ error: 'Email already in use'});
+        }
     }
 }
 
 async function readLogin(response, email, password) {
     await reloadLogins(JSONLoginfile);
     if (emailExists(email)) {
-        response.json({ email: email, password: password });
+        response.status(200).json({ email: email, password: password });
     } else {
         // 404 - Not Found
-        console.log("failword");
-        response.json({ error: `Item '${email}' Not Found` });
+        //console.log("failword");
+        response.status(404).json({ error: `Item '${email}' Not Found` });
     }
 }
 
@@ -86,7 +92,7 @@ async function createItem(response, category, location, contact, time, image, id
         await reloadItems(JSONItemfile);
         items[id] = { category: category, location: location, contact: contact, time: time, image: image };
         await saveItems();
-        response.json({ category: category, location: location, contact: contact, time: time, image: image });
+        response.status(200).json({ category: category, location: location, contact: contact, time: time, image: image });
     }
 }
 
