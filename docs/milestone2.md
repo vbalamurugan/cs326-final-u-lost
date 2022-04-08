@@ -25,6 +25,13 @@
 * __/reporter/read__                             __GET__
 * __/finder/read__                               __GET__
 
+
+| Syntax      | Description | Test Text     |
+| __/login/create__         |    :----:   |          ---: |
+| __/login/read__        | Title       | Here's this   |
+| __/reporter/create__    | Text        | And more      |
+
+
 ## __/login/create__       __POST__
 
 
