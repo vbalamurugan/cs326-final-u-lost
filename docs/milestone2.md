@@ -70,7 +70,6 @@ API request of type put to update an existing item in a particular category.(In 
 * images - image of item being reported. 
 * id - id of item created. 
 ### Output
-### Output
 ### Response 
 * 200 - OK - The request has succeeded. The reporter has succesfully updated an item.
 * 404 - Resource Not Found - The requested resource does not exist. The message body will contain more information.
@@ -97,7 +96,7 @@ API request of type get to retrieve item details which was posted by the current
 ## __GET__ __/finder/read__
 API request of type get to retrieve item details which was posted by the current user.(In this instance the user is a reporter who wishes to report a lost item.)
 ### Input
-category - category of the items to be read. 
+* category - category of the items to be read. 
 ### Output
 ### Response 
 * 200 - OK - The request has succeeded. Succesfuly retrieved login details. 
