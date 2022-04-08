@@ -29,6 +29,8 @@
 ## __POST__ __/login/create__
 API request of type post to create login for new user for given email and password.
 ### Input
+* email - email user wishes to uses for account credentials. 
+* password - password user wishes to uses for account credentials.
 ### Output
 ### Response 
 * 200 - OK - The request has succeeded. The client has succesfully created an account.
@@ -38,6 +40,7 @@ API request of type post to create login for new user for given email and passwo
 ## __GET__ __/login/read__
 API request of type get to retrieve login credentials for existing user for given email.
 ### Input
+* email - email user had used for creating an account previously. 
 ### Output
 ### Response 
 * 200 - OK - The request has succeeded. Succesfuly retrieved login details. 
@@ -46,6 +49,7 @@ API request of type get to retrieve login credentials for existing user for give
 ## __POST__ __/reporter/create__
 API request of type post to create an item for a particular category previously choosen by user.(In this instance the user is a reporter who wishes to report a lost item.)
 ### Input
+
 ### Output
 ### Response 
 * 200 - OK - The request has succeeded. The reporter has succesfully created an item.
