@@ -90,10 +90,10 @@ async function readItem(response, id) {
         const contact = items[id].contact;
         const time = items[id].time;
         const image = items[id].image;
-        response.json({ category: category, location: location, contact: contact, time: time, image: image });
+        response.status(200).json({ category: category, location: location, contact: contact, time: time, image: image });
     } else {
         // 404 - Not Found
-        response.status(400).json({ error: `Item '${id}' Not Found` });
+        response.status(404).json({ error: `Item '${id}' Not Found` });
     }
 }
 
@@ -115,9 +115,9 @@ async function updateItem(response, category, location, contact, time, image, id
         console.log('HI');
         items[id] = { category: category, location: location, contact: contact, time: time, image: image };
         await saveItems();
-        response.json({ category: category, location: location, contact: contact, time: time, image: image });
+        response.status(200).json({ category: category, location: location, contact: contact, time: time, image: image });
     } else {
-        response.json({ error: `Item '${id}' Not Found` });
+        response.status(404).json({ error: `Item '${id}' Not Found` });
     }
 }
 
@@ -133,7 +133,7 @@ async function deleteItem(response, id) {
         await saveItems();
         response.json({ category: category, location: location, contact: contact, time: time, image: image });
     } else {
-        response.json({ error: `Item '${id}' Not Found` });
+        response.status(404).json({ error: `Item '${id}' Not Found` });
     }
 }
 
