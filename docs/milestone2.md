@@ -16,23 +16,17 @@
 
 # API Documentation
 
-## Requests                                       Method
-* __/login/create__                              __POST__
-* __/login/read__                                __GET__
-* __/reporter/create__                           __POST__
-* __/reporter/update__                           __PUT__
-* __/reporter/delete__                           __DELETE__
-* __/reporter/read__                             __GET__
-* __/finder/read__                               __GET__
+## Introduction
 
+## Method | Requests
+* __POST__ __/login/create__
+* __GET__ __/login/read__
+* __POST__ __/reporter/create__
+* __PUT__ __/reporter/update__
+* __DELETE__ __/reporter/delete__
+* __GET__ __/reporter/read__
+* __GET__ __/finder/read__
 
-| Syntax      | Description | Test Text     |
-| __/login/create__         |    :----:   |          ---: |
-| __/login/read__        | Title       | Here's this   |
-| __/reporter/create__    | Text        | And more      |
+## __POST__ __/login/create__
 
-
-## __/login/create__       __POST__
-
-
-## __/login/read__         __GET__
+## __GET__ __/login/read__
