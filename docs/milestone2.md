@@ -16,12 +16,16 @@
 
 # API Documentation
 
-## Requests
-* __"/login/create"__
-* __"/login/read"__
-* __"/reporter/create"__
-* __"/reporter/update"__
-* __"/reporter/delete"__
-* __"/reporter/read"__
-* __"/finder/read"__
+## Requests                Method
+* __/login/create__       __POST__
+* __/login/read__         __GET__
+* __/reporter/create__    __POST__
+* __/reporter/update__    __PUT__
+* __/reporter/delete__    __DELETE__
+* __/reporter/read__      __GET__
+* __/finder/read__        __GET__
 
+## __/login/create__       __POST__
+
+
+## __/login/read__         __GET__
