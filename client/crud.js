@@ -25,9 +25,9 @@ export async function readLogin(email, password) {
     }
 }
 
-export async function readItem(category, location, contact, time, image, id) {
+export async function readItem(id) {
     try {
-        const response = await fetch(`/reporter/read?category=${category}&location=${location}&contact=${contact}&time=${time}&image=${image}&id=${id}`, {
+        const response = await fetch(`/reporter/read?id=${id}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -35,7 +35,7 @@ export async function readItem(category, location, contact, time, image, id) {
         });
         const data = await response.json();
         return data;
-    } catch(err) {
+    } catch (err) {
         console.log(err);
     }
 }
