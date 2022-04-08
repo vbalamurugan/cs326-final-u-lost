@@ -17,11 +17,11 @@
 # API Documentation
 
 ## Requests
-*"/login/create" 
-*"/login/read"
-*"/reporter/create"
-*"/reporter/update"
-*"/reporter/delete"
-*"/reporter/read"
-*"/finder/read"
+* __"/login/create"__
+* __"/login/read"__
+* __"/reporter/create"__
+* __"/reporter/update"__
+* __"/reporter/delete"__
+* __"/reporter/read"__
+* __"/finder/read"__
 
