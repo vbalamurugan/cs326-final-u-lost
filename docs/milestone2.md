@@ -49,7 +49,12 @@ API request of type get to retrieve login credentials for existing user for give
 ## __POST__ __/reporter/create__
 API request of type post to create an item for a particular category previously choosen by user.(In this instance the user is a reporter who wishes to report a lost item.)
 ### Input
-
+* category - category of item being reported. 
+* location - location of item being reported. 
+* contact - contact details of reporter. 
+* time - time when the item was found. 
+* images - image of item being reported. 
+* id - id of item being created. 
 ### Output
 ### Response 
 * 200 - OK - The request has succeeded. The reporter has succesfully created an item.
@@ -58,6 +63,13 @@ API request of type post to create an item for a particular category previously 
 ## __PUT__ __/reporter/update__
 API request of type put to update an existing item in a particular category.(In this instance the user is a reporter who wishes to update item details that was previously reported by them.)
 ### Input
+* category - category of item being reported. 
+* location - location of item being reported. 
+* contact - contact details of reporter. 
+* time - time when the item was found. 
+* images - image of item being reported. 
+* id - id of item created. 
+### Output
 ### Output
 ### Response 
 * 200 - OK - The request has succeeded. The reporter has succesfully updated an item.
@@ -66,6 +78,7 @@ API request of type put to update an existing item in a particular category.(In 
 ## __DELETE__ __/reporter/delete__
 API request of type delete to delete an existing item in a particular category.(In this instance the user is a reporter who wishes to delete item that was previously reported by them.)
 ### Input
+* id - id of item created. 
 ### Output
 ### Response 
 * 200 - OK - The request has succeeded. The reporter has succesfully deleted an item. 
@@ -74,6 +87,7 @@ API request of type delete to delete an existing item in a particular category.(
 ## __GET__ __/reporter/read__
 API request of type get to retrieve item details which was posted by the current user.(In this instance the user is a reporter who wishes to report a lost item.)
 ### Input
+* id - id of item created. 
 ### Output
 ### Response 
 * 200 - OK - The request has succeeded. Succesfuly retrieved login details. 
@@ -83,6 +97,7 @@ API request of type get to retrieve item details which was posted by the current
 ## __GET__ __/finder/read__
 API request of type get to retrieve item details which was posted by the current user.(In this instance the user is a reporter who wishes to report a lost item.)
 ### Input
+category - category of the items to be read. 
 ### Output
 ### Response 
 * 200 - OK - The request has succeeded. Succesfuly retrieved login details. 
