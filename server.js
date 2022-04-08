@@ -78,9 +78,22 @@ async function readLogin(response, email, password) {
     if (emailExists(email)) {
         response.status(200).json({ email: email, password: password });
     } else {
-        // 404 - Not Found
-        //console.log("failword");
         response.status(404).json({ error: `Item '${email}' Not Found` });
+    }
+}
+
+async function readItem(response, id) {
+    await reloadItems(JSONItemfile);
+    if (idExists(id)) {
+        const category = items[id].category;
+        const location = items[id].location;
+        const contact = items[id].contact;
+        const time = items[id].time;
+        const image = items[id].image;
+        response.json({ category: category, location: location, contact: contact, time: time, image: image });
+    } else {
+        // 404 - Not Found
+        response.status(400).json({ error: `Item '${id}' Not Found` });
     }
 }
 
@@ -98,7 +111,6 @@ async function createItem(response, category, location, contact, time, image, id
 
 async function updateItem(response, category, location, contact, time, image, id) {
     await reloadItems(JSONItemfile);
-    console.log(typeof (id));
     if (idExists(id)) {
         console.log('HI');
         items[id] = { category: category, location: location, contact: contact, time: time, image: image };
@@ -144,6 +156,11 @@ app.post('/login/create', (req, res) => {
 app.get('/login/read', (req, res) => {
     const options = req.query;
     readLogin(res, options.email, options.password);
+});
+
+app.get('/reporter/read', (req, res) => {
+    const options = req.query;
+    readItem(res, options.id);
 });
 
 app.post('/reporter/create', (req, res) => {
