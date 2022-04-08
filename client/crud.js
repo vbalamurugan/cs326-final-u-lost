@@ -20,8 +20,23 @@ export async function readLogin(email, password) {
         });
         const data = await response.json();
         return data;
-    } catch (e) {
-        console.log(e);
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+export async function readItem(category, location, contact, time, image, id) {
+    try {
+        const response = await fetch(`/reporter/read?category=${category}&location=${location}&contact=${contact}&time=${time}&image=${image}&id=${id}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+        const data = await response.json();
+        return data;
+    } catch(err) {
+        console.log(err);
     }
 }
 

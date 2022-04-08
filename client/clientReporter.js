@@ -27,47 +27,12 @@ document.getElementById("deleteButton").addEventListener("click", async(e) => {
     const newItem = await crud.deleteItem(id);
 });
 
-// const jsonob1 = { category: "electronics", location: "library", contact: "Sid", time: "7:20pm", image: "image1", id: "1" };
-// const jsonob2 = { category: "mobile", location: "lgrc", contact: "Me", time: "5:40pm", image: "image2", id: "2" };
-// const jsonob3 = { category: "wallet", location: "office", contact: "Ghost", time: "9:40pm", image: "image3", id: "3" };
-
-// let arr = [];
-// arr.push(jsonob1, jsonob2, jsonob3);
-
-// function render(element) {
-//     element.innerHTML = "";
-
-//     // for (let i = 1; i <= 3; ++i) {
-//     //     const div = document.createElement("div");
-//     //     div.classList.add("grid-item");
-//     //     div.innerText = arr[i];
-//     //     element.appendChild(div);
-//     // }
-//     //     for (let item of arr) {
-//     //         row = document.getElementById("tabledata").insertRow(-1);
-//     //         for (let key in item) {
-//     //             var cell = row.insertCell(-1);
-//     //             cell.innerHTML = item[key];
-//     //         }
-//     //     }
-
-//     for (var i = 0; i < arr.length; i++) {
-
-//         tr = document.getElementById("tabledata").insertRow(-1);
-
-//         for (var j = 0; j < col.length; j++) {
-//             var tabCell = tr.insertCell(-1);
-//             tabCell.innerHTML = myBooks[i][col[j]];
-//         }
-//     }
-
-// }
-// render();
-function CreateTableFromJSON() {
+function createTablefunc() {
     // const jsonob1 = { category: "electronics", location: "library", contact: "Sid", time: "7:20pm", image: "image1", id: "1" };
     // const jsonob2 = { category: "mobile", location: "lgrc", contact: "Me", time: "5:40pm", image: "image2", id: "2" };
     // const jsonob3 = { category: "wallet", location: "office", contact: "Ghost", time: "9:40pm", image: "image3", id: "3" };
-    const itemthing = await crud.readItem()
+    const id = document.getElementById("id2").value;
+    const itemthing = await crud.readItem(id);
     let myBooks = [];
     myBooks.push(jsonob1, jsonob2, jsonob3);
 
@@ -85,21 +50,21 @@ function CreateTableFromJSON() {
     table.classList.add('table-hover');
     // CREATE HTML TABLE HEADER ROW USING THE EXTRACTED HEADERS ABOVE.
 
-    var tr = table.insertRow(-1); // TABLE ROW.
+    let tr = table.insertRow(-1); // TABLE ROW.
     tr.classList.add('cell');
-    for (var i = 0; i < col.length; i++) {
-        var th = document.createElement("th"); // TABLE HEADER.
+    for (let i = 0; i < col.length; i++) {
+        let th = document.createElement("th"); // TABLE HEADER.
         th.innerHTML = col[i];
         tr.appendChild(th);
     }
 
     // ADD JSON DATA TO THE TABLE AS ROWS.
-    for (var i = 0; i < myBooks.length; i++) {
+    for (let i = 0; i < myBooks.length; i++) {
 
         tr = table.insertRow(-1);
 
-        for (var j = 0; j < col.length; j++) {
-            var tabCell = tr.insertCell(-1);
+        for (let j = 0; j < col.length; j++) {
+            let tabCell = tr.insertCell(-1);
             tabCell.setAttribute("data-bs-toggle", "modal");
             tabCell.setAttribute("data-bs-target", "#exampleModal");
             tabCell.innerHTML = myBooks[i][col[j]];
@@ -107,9 +72,9 @@ function CreateTableFromJSON() {
     }
 
     // FINALLY ADD THE NEWLY CREATED TABLE WITH JSON DATA TO A CONTAINER.
-    var divContainer = document.getElementById("span");
+    let divContainer = document.getElementById("span");
     divContainer.innerHTML = "";
     divContainer.appendChild(table);
 }
 
-CreateTableFromJSON();
+createTablefunc();
