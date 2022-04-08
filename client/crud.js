@@ -11,14 +11,18 @@ export async function createLogin(email, password) {
 }
 
 export async function readLogin(email, password) {
-    const response = await fetch(`/login/read?email=${email}&password=${password}`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-        }
-    });
-    const data = await response.json();
-    return data;
+    try{
+        const response = await fetch(`/login/read?email=${email}&password=${password}`, {
+            method: 'GET',
+            // headers: {
+            //     'Content-Type': 'application/json',
+            // }
+        });
+        const data = await response.json();
+        return data;
+    } catch(e) {
+        console.log(e);
+    }
 }
 
 export async function createItem(category, location, contact, time, image, id) {

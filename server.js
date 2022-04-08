@@ -50,6 +50,11 @@ function idExists(id) {
     return id in items;
 }
 
+function emailExists(email) {
+    return email in logins;
+}
+
+
 async function createLogin(response, email, password) {
     if (email === undefined) {
         // 400 - Bad Request
@@ -62,12 +67,18 @@ async function createLogin(response, email, password) {
     }
 }
 
-async function readLogin(response, id, email, password) {
-  if (idExists(id)) {
+async function readLogin(response, email, password) {
+    console.log(email in logins)
+    console.log(logins)
+    console.log(email)
+    await reloadLogins(JSONLoginfile);
+  if (emailExists(email)) {
+      console.log("Nishant");
     response.json({ email: email, password: password });
   } else {
     // 404 - Not Found
-    response.json({ error: `Item '${id}' Not Found` });
+    console.log("failword");
+    response.json({ error: `Item '${email}' Not Found` });
   }
 }
 
@@ -130,7 +141,7 @@ app.post('/login/create', (req, res) => {
 
 app.get('/login/read', (req, res) => {
     const options = req.body;
-    readLogin(res, options.id, options.email, options.password);
+    readLogin(res, options.email, options.password);
 });
 
 app.post('/reporter/create', (req, res) => {
