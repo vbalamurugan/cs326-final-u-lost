@@ -68,18 +68,18 @@ async function createLogin(response, email, password) {
 }
 
 async function readLogin(response, email, password) {
-    console.log(email in logins)
-    console.log(logins)
-    console.log(email)
     await reloadLogins(JSONLoginfile);
-  if (emailExists(email)) {
-      console.log("Nishant");
-    response.json({ email: email, password: password });
-  } else {
-    // 404 - Not Found
-    console.log("failword");
-    response.json({ error: `Item '${email}' Not Found` });
-  }
+    console.log(email);
+    console.log(email in logins);
+    console.log(logins);
+    if (emailExists(email)) {
+        console.log("Nishant");
+        response.json({ email: email, password: password });
+    } else {
+        // 404 - Not Found
+        console.log("failword");
+        response.json({ error: `Item '${email}' Not Found` });
+    }
 }
 
 async function createItem(response, category, location, contact, time, image, id) {
@@ -140,7 +140,7 @@ app.post('/login/create', (req, res) => {
 });
 
 app.get('/login/read', (req, res) => {
-    const options = req.body;
+    const options = req.query;
     readLogin(res, options.email, options.password);
 });
 

@@ -11,16 +11,16 @@ export async function createLogin(email, password) {
 }
 
 export async function readLogin(email, password) {
-    try{
+    try {
         const response = await fetch(`/login/read?email=${email}&password=${password}`, {
             method: 'GET',
-            // headers: {
-            //     'Content-Type': 'application/json',
-            // }
+            headers: {
+                'Content-Type': 'application/json',
+            }
         });
         const data = await response.json();
         return data;
-    } catch(e) {
+    } catch (e) {
         console.log(e);
     }
 }
