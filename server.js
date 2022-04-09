@@ -62,7 +62,7 @@ async function createLogin(response, email, password) {
         response.status(400).json({ error: 'Email is required' });
     } else {
         await reloadLogins(JSONLoginfile);
-        if (!emailExists) {
+        if (!emailExists(email)) {
             logins[email] = { email: email, password: password };
             await saveLogins();
             response.status(200).json({ email: email, password: password });
@@ -92,7 +92,7 @@ async function readItem(response, id) {
         response.json({ category: category, location: location, contact: contact, time: time, image: image, id: id });
     } else {
         // 404 - Not Found
-        response.status(400).json({ error: `Item '${id}' Not Found` });
+        response.status(404).json({ error: `Item '${id}' Not Found` });
     }
 }
 
@@ -115,7 +115,7 @@ async function updateItem(response, category, location, contact, time, image, id
         await saveItems();
         response.json({ category: category, location: location, contact: contact, time: time, image: image, id: id });
     } else {
-        response.json({ error: `Item '${id}' Not Found` });
+        response.status(404).json({ error: `Item '${id}' Not Found` });
     }
 }
 
@@ -131,7 +131,7 @@ async function deleteItem(response, id) {
         await saveItems();
         response.json({ category: category, location: location, contact: contact, time: time, image: image, id: id });
     } else {
-        response.json({ error: `Item '${id}' Not Found` });
+        response.status(404).json({ error: `Item '${id}' Not Found` });
     }
 }
 
