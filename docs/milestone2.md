@@ -31,6 +31,8 @@ API request of type post to create login for new user for given email and passwo
 ### Input
 * email - email user wishes to uses for account credentials. 
 * password - password user wishes to uses for account credentials.
+* Example Input : ![postlogincreate_-_link](https://user-images.githubusercontent.com/59256553/162589317-f6038655-6730-4f27-af23-44da8bbf0ddc.png)
+
 ### Output
 ### Response 
 * 200 - OK - The request has succeeded. The client has succesfully created an account.
