@@ -4,8 +4,8 @@ import express from 'express';
 import logger from 'morgan';
 import { readFile, writeFile } from 'fs/promises';
 
-const JSONItemfile = 'item.json';
-const JSONLoginfile = 'login.json';
+const JSONItemfile = './client/item.json';
+const JSONLoginfile = './client/login.json';
 
 let items = {};
 let logins = {};
@@ -56,19 +56,18 @@ function emailExists(email) {
 
 
 async function createLogin(response, email, password) {
+    console.log(email);
     if (email === undefined) {
         // 400 - Bad Request
         response.status(400).json({ error: 'Email is required' });
-    }
-    else {
+    } else {
         await reloadLogins(JSONLoginfile);
-        if(!emailExists){
+        if (!emailExists(email)) {
             logins[email] = { email: email, password: password };
             await saveLogins();
             response.status(200).json({ email: email, password: password });
-        }
-        else{
-            response.status(403).json({ error: 'Email already in use'});
+        } else {
+            response.status(403).json({ error: 'Email already in use' });
         }
     }
 }
@@ -84,10 +83,20 @@ async function readLogin(response, email, password) {
 
 async function readItem(response, category) {
     await reloadItems(JSONItemfile);
+<<<<<<< HEAD
     const itemsInCategory = checkObjCategory(category)
     if (itemsInCategory.length > 1) {
         response.status(200).write(JSON.stringify(itemsInCategory));
         response.end();
+=======
+    if (idExists(id)) {
+        const category = items[id].category;
+        const location = items[id].location;
+        const contact = items[id].contact;
+        const time = items[id].time;
+        const image = items[id].image;
+        response.json({ category: category, location: location, contact: contact, time: time, image: image, id: id });
+>>>>>>> 0574eef40dc9784bea53be98ad8cf3e47d293683
     } else {
         // 404 - Not Found
         response.status(404).json({ error: `No Items in this category`});
@@ -103,17 +112,16 @@ async function createItem(response, category, location, contact, time, image, id
         await reloadItems(JSONItemfile);
         items[id] = { category: category, location: location, contact: contact, time: time, image: image };
         await saveItems();
-        response.status(200).json({ category: category, location: location, contact: contact, time: time, image: image });
+        response.status(200).json({ category: category, location: location, contact: contact, time: time, image: image, id: id });
     }
 }
 
 async function updateItem(response, category, location, contact, time, image, id) {
     await reloadItems(JSONItemfile);
     if (idExists(id)) {
-        console.log('HI');
-        items[id] = { category: category, location: location, contact: contact, time: time, image: image };
+        items[id] = { category: category, location: location, contact: contact, time: time, image: image, id: id };
         await saveItems();
-        response.status(200).json({ category: category, location: location, contact: contact, time: time, image: image });
+        response.json({ category: category, location: location, contact: contact, time: time, image: image, id: id });
     } else {
         response.status(404).json({ error: `Item '${id}' Not Found` });
     }
@@ -129,7 +137,7 @@ async function deleteItem(response, id) {
         const image = items[id].image;
         delete items[id];
         await saveItems();
-        response.json({ category: category, location: location, contact: contact, time: time, image: image });
+        response.json({ category: category, location: location, contact: contact, time: time, image: image, id: id });
     } else {
         response.status(404).json({ error: `Item '${id}' Not Found` });
     }
@@ -205,7 +213,7 @@ app.get('/finder/read', (req, res) => {
 
 app.get('*', (req, res) => {
     console.log(req.path);
-    res.status(404).json({ message: 'Unknown Request' });
+    res.status(404).json({ message: 'U Req' });
 });
 
 app.listen(port, () => {
