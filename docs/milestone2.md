@@ -31,7 +31,10 @@ API request of type post to create login for new user for given email and passwo
 ### Input
 * email - email user wishes to uses for account credentials. 
 * password - password user wishes to uses for account credentials.
+* Example Input :![postlogincreate_-_link](https://user-images.githubusercontent.com/59256553/162589317-f6038655-6730-4f27-af23-44da8bbf0ddc.png)
 ### Output
+Example Output :![postlogincreate_-_output](https://user-images.githubusercontent.com/59256553/162589356-053895ad-ebf4-4c0e-b562-a9791027ea7e.png)
+
 ### Response 
 * 200 - OK - The request has succeeded. The client has succesfully created an account.
 * 400 - Bad Request - The request could not be understood due to invalid syntax. The message body will contain more information.
@@ -41,7 +44,10 @@ API request of type post to create login for new user for given email and passwo
 API request of type get to retrieve login credentials for existing user for given email.
 ### Input
 * email - email user had used for creating an account previously. 
+* Example Input :![getloginread_-_link](https://user-images.githubusercontent.com/59256553/162589376-bdb64914-49e8-4129-936f-f1ec03e5dfc6.png)
 ### Output
+Example Ouput :![getloginread_-_output](https://user-images.githubusercontent.com/59256553/162589385-b5e633c3-7870-4a12-a10b-1fb21bbd59b5.png)
+
 ### Response 
 * 200 - OK - The request has succeeded. Succesfuly retrieved login details. 
 * 404 - Resource Not Found - The requested resource does not exist. The message body will contain more information.
