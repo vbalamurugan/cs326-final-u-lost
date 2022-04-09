@@ -85,7 +85,7 @@ async function readLogin(response, email, password) {
 async function readItem(response, category) {
     await reloadItems(JSONItemfile);
     const itemsInCategory = checkObjCategory(category)
-    if (itemsInCategory.length > 1) {
+    if (itemsInCategory.length > 0) {
         response.status(200).write(JSON.stringify(itemsInCategory));
         response.end();
     } else {
@@ -135,19 +135,23 @@ async function deleteItem(response, id) {
 }
 
 function checkObjCategory(category) {
+    console.log(category)
     let itemsInCategory = [];
     for (let obj in items) {
+        console.log(obj);
+        console.log(items[obj]);
         if (items[obj]['category'] === category) {
             itemsInCategory.push(items[obj]);
         }
     }
+    console.log(itemsInCategory);
     return itemsInCategory;
 }
 
 async function readItemsFinder(response, category) {
     await reloadItems(JSONItemfile);
     const itemsInCategory = checkObjCategory(category)
-    if (itemsInCategory.length > 1) {
+    if (itemsInCategory.length > 0) {
         response.status(200).write(JSON.stringify(itemsInCategory));
         response.end();
     } else {
