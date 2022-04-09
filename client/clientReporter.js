@@ -26,33 +26,18 @@ document.getElementById("deleteButton").addEventListener("click", async (e) => {
     const newItem = await crud.deleteItem(id);
 });
 
-function CreateTableFromJSON() {
+async function CreateTableFromJSON() {
     const jsonob1 = { category: "electronics", location: "library", contact: "Sid", time: "7:20pm", image: "image1", id: "1" };
     const jsonob2 = { category: "mobile", location: "lgrc", contact: "Me", time: "5:40pm", image: "image2", id: "2" };
     const jsonob3 = { category: "wallet", location: "office", contact: "Ghost", time: "9:40pm", image: "image3", id: "3" };
 
     let myBooks = [];
-    myBooks.push(jsonob1, jsonob2, jsonob3);
-
-    // let myBooks = [{
-    //         "Book ID": "1",
-    //         "Book Name": "Computer Architecture",
-    //         "Category": "Computers",
-    //         "Price": "125.60"
-    //     },
-    //     {
-    //         "Book ID": "2",
-    //         "Book Name": "Asp.Net 4 Blue Book",
-    //         "Category": "Programming",
-    //         "Price": "56.00"
-    //     },
-    //     {
-    //         "Book ID": "3",
-    //         "Book Name": "Popular Science",
-    //         "Category": "Science",
-    //         "Price": "210.40"
-    //     }
-    // ]
+    const response = await fetch('./item.json');
+    console.log(response);
+    for (let key in items) {
+        myBooks.push(await crud.readItem(key));
+    }
+    // myBooks.push(jsonob1, jsonob2, jsonob3);
 
     // EXTRACT VALUE FOR HTML HEADER. 
     // ('Book ID', 'Book Name', 'Category' and 'Price')

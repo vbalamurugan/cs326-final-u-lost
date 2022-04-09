@@ -62,13 +62,13 @@ async function createLogin(response, email, password) {
     }
     else {
         await reloadLogins(JSONLoginfile);
-        if(!emailExists){
+        if (!emailExists) {
             logins[email] = { email: email, password: password };
             await saveLogins();
             response.status(200).json({ email: email, password: password });
         }
-        else{
-            response.status(403).json({ error: 'Email already in use'});
+        else {
+            response.status(403).json({ error: 'Email already in use' });
         }
     }
 }
@@ -103,9 +103,9 @@ async function createItem(response, category, location, contact, time, image, id
         response.status(400).json({ error: 'ID is required' });
     } else {
         await reloadItems(JSONItemfile);
-        items[id] = { category: category, location: location, contact: contact, time: time, image: image };
+        items[id] = { category: category, location: location, contact: contact, time: time, image: image, id: id };
         await saveItems();
-        response.status(200).json({ category: category, location: location, contact: contact, time: time, image: image });
+        response.status(200).json({ category: category, location: location, contact: contact, time: time, image: image, id: id });
     }
 }
 
@@ -113,9 +113,9 @@ async function updateItem(response, category, location, contact, time, image, id
     await reloadItems(JSONItemfile);
     if (idExists(id)) {
         console.log('HI');
-        items[id] = { category: category, location: location, contact: contact, time: time, image: image };
+        items[id] = { category: category, location: location, contact: contact, time: time, image: image, id: id };
         await saveItems();
-        response.json({ category: category, location: location, contact: contact, time: time, image: image });
+        response.json({ category: category, location: location, contact: contact, time: time, image: image, id: id });
     } else {
         response.json({ error: `Item '${id}' Not Found` });
     }
@@ -131,7 +131,7 @@ async function deleteItem(response, id) {
         const image = items[id].image;
         delete items[id];
         await saveItems();
-        response.json({ category: category, location: location, contact: contact, time: time, image: image });
+        response.json({ category: category, location: location, contact: contact, time: time, image: image, id: id });
     } else {
         response.json({ error: `Item '${id}' Not Found` });
     }
