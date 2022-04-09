@@ -1,7 +1,5 @@
 import * as crud from "./crud.js";
 
-
-
 document.getElementById("addItem").addEventListener("click", async (e) => {
     const category = document.getElementById("category").value;
     const time = document.getElementById("time").value;
@@ -10,6 +8,7 @@ document.getElementById("addItem").addEventListener("click", async (e) => {
     const image = document.getElementById("image").value;
     const id = document.getElementById("id").value;
     const newItem = await crud.createItem(category, location, contact, time, image, id);
+    window.location.reload();
 });
 
 document.getElementById("updateButton").addEventListener("click", async (e) => {
@@ -32,28 +31,15 @@ document.getElementById("deleteButton").addEventListener("click", async (e) => {
 
 
 async function CreateTableFromJSON() {
-    // const jsonob1 = { category: "electronics", location: "library", contact: "Sid", time: "7:20pm", image: "image1", id: "1" };
-    // const jsonob2 = { category: "mobile", location: "lgrc", contact: "Me", time: "5:40pm", image: "image2", id: "2" };
-    // const jsonob3 = { category: "wallet", location: "office", contact: "Ghost", time: "9:40pm", image: "image3", id: "3" };
-
     let myBooks = [];
-    // myBooks.push(jsonob1, jsonob2, jsonob3);
-    // const id = document.getElementById("id");
-    // const itemthing = crud.readItem(id);
-
     const response = await fetch("./item.json")
 
-    // if (!itemdata.ok) {
-    //     console.log("Failed to load");
-    //     return;
-    // }
     if (!response.ok) {
         console.log("Failed to load");
         return;
     }
     let itemdata = await response.json();
-    console.log(itemdata)
-    // // console.log(itemdata)
+
     for (let val of Object.keys(itemdata)) {
         myBooks.push(itemdata[val])
     }
@@ -78,7 +64,7 @@ async function CreateTableFromJSON() {
     tr.classList.add('cell');
     for (let i = 0; i < col.length; i++) {
         let th = document.createElement("th"); // TABLE HEADER.
-        th.innerHTML = col[i];
+        th.innerHTML = col[i].toUpperCase();
         tr.appendChild(th);
     }
 
@@ -92,6 +78,13 @@ async function CreateTableFromJSON() {
             tabCell.setAttribute("data-bs-toggle", "modal");
             tabCell.setAttribute("data-bs-target", "#exampleModal");
             tabCell.innerHTML = myBooks[i][col[j]];
+            tabCell.addEventListener('click', () => {
+                document.getElementById('id2').value = myBooks[i].id;
+                document.getElementById('category2').value = myBooks[i].category;
+                document.getElementById('location2').value = myBooks[i].location;
+                document.getElementById('time2').value = myBooks[i].time;
+                document.getElementById('contact2').value = myBooks[i].contact;
+            });
         }
     }
 

@@ -3,6 +3,10 @@ span {
     white-space: pre-wrap;
 }
 
+input {
+    margin: 0.5rem;
+}
+
 .cell {
     font-family: 'Nunito', sans-serif;
     border: 20px;
