@@ -83,20 +83,10 @@ async function readLogin(response, email, password) {
 
 async function readItem(response, category) {
     await reloadItems(JSONItemfile);
-<<<<<<< HEAD
     const itemsInCategory = checkObjCategory(category)
-    if (itemsInCategory.length > 1) {
+    if (itemsInCategory.length > 0) {
         response.status(200).write(JSON.stringify(itemsInCategory));
         response.end();
-=======
-    if (idExists(id)) {
-        const category = items[id].category;
-        const location = items[id].location;
-        const contact = items[id].contact;
-        const time = items[id].time;
-        const image = items[id].image;
-        response.json({ category: category, location: location, contact: contact, time: time, image: image, id: id });
->>>>>>> 0574eef40dc9784bea53be98ad8cf3e47d293683
     } else {
         // 404 - Not Found
         response.status(404).json({ error: `No Items in this category`});
@@ -144,19 +134,23 @@ async function deleteItem(response, id) {
 }
 
 function checkObjCategory(category){
+    console.log(category)
     let itemsInCategory = [];
     for(let obj in items){
+        console.log(obj);
+        console.log(items[obj]);
         if(items[obj]['category'] === category){
             itemsInCategory.push(items[obj]);
         }
     }
+    console.log(itemsInCategory);
     return itemsInCategory;
 }
   
 async function readItemsFinder(response, category) {
     await reloadItems(JSONItemfile);
     const itemsInCategory = checkObjCategory(category)
-    if (itemsInCategory.length > 1) {
+    if (itemsInCategory.length > 0) {
         response.status(200).write(JSON.stringify(itemsInCategory));
         response.end();
     } else {

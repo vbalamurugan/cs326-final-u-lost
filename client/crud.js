@@ -25,9 +25,9 @@ export async function readLogin(email, password) {
     }
 }
 
-export async function readItem(id) {
+export async function readItem(category) {
     try {
-        const response = await fetch(`/reporter/read?category=${categor}`, {
+        const response = await fetch(`/reporter/read?category=${category}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
