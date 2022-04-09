@@ -4,8 +4,8 @@ import express from 'express';
 import logger from 'morgan';
 import { readFile, writeFile } from 'fs/promises';
 
-const JSONItemfile = 'item.json';
-const JSONLoginfile = 'login.json';
+const JSONItemfile = './client/item.json';
+const JSONLoginfile = './client/login.json';
 
 let items = {};
 let logins = {};
@@ -56,18 +56,17 @@ function emailExists(email) {
 
 
 async function createLogin(response, email, password) {
+    console.log(email);
     if (email === undefined) {
         // 400 - Bad Request
         response.status(400).json({ error: 'Email is required' });
-    }
-    else {
+    } else {
         await reloadLogins(JSONLoginfile);
         if (!emailExists(email)) {
             logins[email] = { email: email, password: password };
             await saveLogins();
             response.status(200).json({ email: email, password: password });
-        }
-        else {
+        } else {
             response.status(403).json({ error: 'Email already in use' });
         }
         console.log(logins)
@@ -91,7 +90,7 @@ async function readItem(response, id) {
         const contact = items[id].contact;
         const time = items[id].time;
         const image = items[id].image;
-        response.status(200).json({ category: category, location: location, contact: contact, time: time, image: image });
+        response.json({ category: category, location: location, contact: contact, time: time, image: image, id: id });
     } else {
         // 404 - Not Found
         response.status(404).json({ error: `Item '${id}' Not Found` });
@@ -113,10 +112,9 @@ async function createItem(response, category, location, contact, time, image, id
 async function updateItem(response, category, location, contact, time, image, id) {
     await reloadItems(JSONItemfile);
     if (idExists(id)) {
-        console.log('HI');
         items[id] = { category: category, location: location, contact: contact, time: time, image: image, id: id };
         await saveItems();
-        response.status(200).json({ category: category, location: location, contact: contact, time: time, image: image });
+        response.json({ category: category, location: location, contact: contact, time: time, image: image, id: id });
     } else {
         response.status(404).json({ error: `Item '${id}' Not Found` });
     }
@@ -181,7 +179,7 @@ app.delete('/reporter/delete', (req, res) => {
 
 app.get('*', (req, res) => {
     console.log(req.path);
-    res.status(404).json({ message: 'Unknown Request' });
+    res.status(404).json({ message: 'U Req' });
 });
 
 app.listen(port, () => {
