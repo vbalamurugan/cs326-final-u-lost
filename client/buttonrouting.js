@@ -25,9 +25,9 @@ import * as crud from "./crud.js";
 //     location.href = "http://127.0.0.1:5500/GroupProject/cs326-final-u-lost/itemListFinder.html";
 // };
 
-document.getElementById("reporter-btn").onclick = function () {
-    location.href = "http://localhost:3000/client/categories.html";
-};
+// document.getElementById("reporter-btn").onclick = function () {
+//     location.href = "http://localhost:3000/client/categories.html";
+// };
 
 // document.getElementById("finder-btn").onclick = function () {
 //     location.href = "http://127.0.0.1:5500/GroupProject/cs326-final-u-lost/categories.html";

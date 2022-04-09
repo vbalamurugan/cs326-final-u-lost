@@ -62,7 +62,7 @@ async function createLogin(response, email, password) {
     }
     else {
         await reloadLogins(JSONLoginfile);
-        if (!emailExists) {
+        if (!emailExists(email)) {
             logins[email] = { email: email, password: password };
             await saveLogins();
             response.status(200).json({ email: email, password: password });
@@ -70,6 +70,7 @@ async function createLogin(response, email, password) {
         else {
             response.status(403).json({ error: 'Email already in use' });
         }
+        console.log(logins)
     }
 }
 
@@ -90,10 +91,10 @@ async function readItem(response, id) {
         const contact = items[id].contact;
         const time = items[id].time;
         const image = items[id].image;
-        response.json({ category: category, location: location, contact: contact, time: time, image: image });
+        response.status(200).json({ category: category, location: location, contact: contact, time: time, image: image });
     } else {
         // 404 - Not Found
-        response.status(400).json({ error: `Item '${id}' Not Found` });
+        response.status(404).json({ error: `Item '${id}' Not Found` });
     }
 }
 
@@ -115,9 +116,9 @@ async function updateItem(response, category, location, contact, time, image, id
         console.log('HI');
         items[id] = { category: category, location: location, contact: contact, time: time, image: image, id: id };
         await saveItems();
-        response.json({ category: category, location: location, contact: contact, time: time, image: image, id: id });
+        response.status(200).json({ category: category, location: location, contact: contact, time: time, image: image });
     } else {
-        response.json({ error: `Item '${id}' Not Found` });
+        response.status(404).json({ error: `Item '${id}' Not Found` });
     }
 }
 
@@ -133,7 +134,7 @@ async function deleteItem(response, id) {
         await saveItems();
         response.json({ category: category, location: location, contact: contact, time: time, image: image, id: id });
     } else {
-        response.json({ error: `Item '${id}' Not Found` });
+        response.status(404).json({ error: `Item '${id}' Not Found` });
     }
 }
 
@@ -149,7 +150,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use('/client', express.static('client'));
 
 app.post('/login/create', (req, res) => {
-    const options = req.body;
+    const options = req.query;
     createLogin(res, options.email, options.password);
 });
 
@@ -164,17 +165,17 @@ app.get('/reporter/read', (req, res) => {
 });
 
 app.post('/reporter/create', (req, res) => {
-    const options = req.body;
+    const options = req.query;
     createItem(res, options.category, options.location, options.contact, options.time, options.image, options.id);
 });
 
 app.put('/reporter/update', (req, res) => {
-    const options = req.body;
+    const options = req.query;
     updateItem(res, options.category, options.location, options.contact, options.time, options.image, options.id);
 });
 
 app.delete('/reporter/delete', (req, res) => {
-    const options = req.body;
+    const options = req.query;
     deleteItem(res, options.id);
 });
 

@@ -1,18 +1,1 @@
-{
-    "sahil": {
-        "email": "sahil",
-        "password": "111"
-    },
-    "sidharth": {
-        "email": "sidharth",
-        "password": "Hitosid"
-    },
-    "nishant": {
-        "email": "nishant",
-        "password": "abcd"
-    },
-    "sidyo": {
-        "email": "sidyo",
-        "password": "321"
-    }
-}
+{"sahil":{"email":"sahil","password":"111"},"sidharth":{"email":"sidharth","password":"Hitosid"},"nishant":{"email":"nishant","password":"abcd"},"sidyo":{"email":"sidyo","password":"321"},"sahil@gmail.com":{"email":"sahil@gmail.com","password":"123456"},"yo":{"email":"yo","password":"asd"},"milestone":{"email":"milestone","password":"2"}}
