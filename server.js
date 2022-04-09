@@ -82,22 +82,20 @@ async function readLogin(response, email, password) {
     }
 }
 
-async function readItem(response, id) {
+async function readItem(response, category) {
     await reloadItems(JSONItemfile);
-    if (idExists(id)) {
-        const category = items[id].category;
-        const location = items[id].location;
-        const contact = items[id].contact;
-        const time = items[id].time;
-        const image = items[id].image;
-        response.status(200).json({ category: category, location: location, contact: contact, time: time, image: image });
+    const itemsInCategory = checkObjCategory(category)
+    if (itemsInCategory.length > 1) {
+        response.status(200).write(JSON.stringify(itemsInCategory));
+        response.end();
     } else {
         // 404 - Not Found
-        response.status(404).json({ error: `Item '${id}' Not Found` });
+        response.status(404).json({ error: `No Items in this category`});
     }
 }
 
 async function createItem(response, category, location, contact, time, image, id) {
+    console.log(id)
     if (id === undefined) {
         // 400 - Bad Request
         response.status(400).json({ error: 'ID is required' });
@@ -137,6 +135,28 @@ async function deleteItem(response, id) {
     }
 }
 
+function checkObjCategory(category){
+    let itemsInCategory = [];
+    for(let obj in items){
+        if(items[obj]['category'] === category){
+            itemsInCategory.push(items[obj]);
+        }
+    }
+    return itemsInCategory;
+}
+  
+async function readItemsFinder(response, category) {
+    await reloadItems(JSONItemfile);
+    const itemsInCategory = checkObjCategory(category)
+    if (itemsInCategory.length > 1) {
+        response.status(200).write(JSON.stringify(itemsInCategory));
+        response.end();
+    } else {
+        // 404 - Not Found
+        response.status(404).json({ error: `No Items in this category`});
+    }
+}
+
 const app = express();
 const port = 3000;
 
@@ -149,7 +169,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use('/client', express.static('client'));
 
 app.post('/login/create', (req, res) => {
-    const options = req.body;
+    const options = req.query;
     createLogin(res, options.email, options.password);
 });
 
@@ -160,22 +180,27 @@ app.get('/login/read', (req, res) => {
 
 app.get('/reporter/read', (req, res) => {
     const options = req.query;
-    readItem(res, options.id);
+    readItem(res, options.category);
 });
 
 app.post('/reporter/create', (req, res) => {
-    const options = req.body;
+    const options = req.query;
     createItem(res, options.category, options.location, options.contact, options.time, options.image, options.id);
 });
 
 app.put('/reporter/update', (req, res) => {
-    const options = req.body;
+    const options = req.query;
     updateItem(res, options.category, options.location, options.contact, options.time, options.image, options.id);
 });
 
 app.delete('/reporter/delete', (req, res) => {
-    const options = req.body;
+    const options = req.query;
     deleteItem(res, options.id);
+});
+
+app.get('/finder/read', (req, res) => {
+    const options = req.query;
+    readItemsFinder(res, options.category);
 });
 
 app.get('*', (req, res) => {

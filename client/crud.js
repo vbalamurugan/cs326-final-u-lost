@@ -27,7 +27,22 @@ export async function readLogin(email, password) {
 
 export async function readItem(id) {
     try {
-        const response = await fetch(`/reporter/read?id=${id}`, {
+        const response = await fetch(`/reporter/read?category=${categor}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+        const data = await response.json();
+        return data;
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+export async function readItemsFinder(category) {
+    try {
+        const response = await fetch(`/finder/read?category=${categor}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
