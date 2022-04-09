@@ -56,13 +56,14 @@ function emailExists(email) {
 
 
 async function createLogin(response, email, password) {
+    console.log(email);
     if (email === undefined) {
         // 400 - Bad Request
         response.status(400).json({ error: 'Email is required' });
     }
     else {
         await reloadLogins(JSONLoginfile);
-        if(!emailExists){
+        if(!emailExists(email)){
             logins[email] = { email: email, password: password };
             await saveLogins();
             response.status(200).json({ email: email, password: password });
@@ -149,7 +150,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use('/client', express.static('client'));
 
 app.post('/login/create', (req, res) => {
-    const options = req.body;
+    const options = req.query;
     createLogin(res, options.email, options.password);
 });
 
@@ -164,17 +165,17 @@ app.get('/reporter/read', (req, res) => {
 });
 
 app.post('/reporter/create', (req, res) => {
-    const options = req.body;
+    const options = req.query;
     createItem(res, options.category, options.location, options.contact, options.time, options.image, options.id);
 });
 
 app.put('/reporter/update', (req, res) => {
-    const options = req.body;
+    const options = req.query;
     updateItem(res, options.category, options.location, options.contact, options.time, options.image, options.id);
 });
 
 app.delete('/reporter/delete', (req, res) => {
-    const options = req.body;
+    const options = req.query;
     deleteItem(res, options.id);
 });
 
