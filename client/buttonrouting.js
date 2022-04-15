@@ -10,6 +10,6 @@ document.getElementById("submit").addEventListener("click", async (e) => {
     }
     else {
         console.log("no error");
-        location.href = "https://protected-forest-50025.herokuapp.com/client/reporterFinder.html"
+        location.href = "https://localhost:3000/client/reporterFinder.html"
     }
 });
