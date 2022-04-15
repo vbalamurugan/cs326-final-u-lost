@@ -99,9 +99,9 @@ Example Output: <img width="968" alt="Screen Shot 2022-04-09 at 4 35 07 PM" src=
 API request of type get to retrieve item details which was posted by the current user.(In this instance the user is a reporter who wishes to report a lost item.)
 ### Input
 * id - id of item created. 
-* Example Input: <img width="557" alt="Screen Shot 2022-04-09 at 4 35 44 PM" src="https://user-images.githubusercontent.com/59256553/162590818-30615ebb-b4b8-4296-a222-93478a2c61ad.png">
+* Example Input :<img width="557" alt="Screen Shot 2022-04-09 at 4 35 44 PM" src="https://user-images.githubusercontent.com/59256553/162590818-30615ebb-b4b8-4296-a222-93478a2c61ad.png">
 ### Output
-Example Output: <img width="644" alt="Screen Shot 2022-04-09 at 4 35 59 PM" src="https://user-images.githubusercontent.com/59256553/162590823-6c661a49-eef4-400b-9568-d4a504991c0c.png">
+Example Output :<img width="644" alt="Screen Shot 2022-04-09 at 4 35 59 PM" src="https://user-images.githubusercontent.com/59256553/162590823-6c661a49-eef4-400b-9568-d4a504991c0c.png">
 ### Response 
 * 200 - OK - The request has succeeded. Succesfuly retrieved login details. 
 * 404 - Resource Not Found - The requested resource does not exist. The message body will contain more information.
@@ -111,9 +111,9 @@ Example Output: <img width="644" alt="Screen Shot 2022-04-09 at 4 35 59 PM" src=
 API request of type get to retrieve item details which was posted by the current user.(In this instance the user is a reporter who wishes to report a lost item.)
 ### Input
 * category - category of the items to be read. 
-* Example Input: <img width="589" alt="Screen Shot 2022-04-09 at 4 38 06 PM" src="https://user-images.githubusercontent.com/59256553/162590894-77124205-771f-4abe-b924-f943f4018037.png">
+* Example Input :<img width="589" alt="Screen Shot 2022-04-09 at 4 38 06 PM" src="https://user-images.githubusercontent.com/59256553/162590894-77124205-771f-4abe-b924-f943f4018037.png">
 ### Output
-Example Output:<img width="660" alt="Screen Shot 2022-04-09 at 4 38 22 PM" src="https://user-images.githubusercontent.com/59256553/162590895-e2eaa1e5-97b4-4fab-a1cb-fee9977336d3.png">
+Example Output :<img width="660" alt="Screen Shot 2022-04-09 at 4 38 22 PM" src="https://user-images.githubusercontent.com/59256553/162590895-e2eaa1e5-97b4-4fab-a1cb-fee9977336d3.png">
 ### Response 
 * 200 - OK - The request has succeeded. Succesfuly retrieved login details. 
 * 404 - Resource Not Found - The requested resource does not exist. The message body will contain more information.
