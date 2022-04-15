@@ -42,7 +42,7 @@ export async function readItem(category) {
 
 export async function readItemsFinder(category) {
     try {
-        const response = await fetch(`/finder/read?category=${categor}`, {
+        const response = await fetch(`/finder/read?category=${category}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

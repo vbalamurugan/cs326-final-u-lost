@@ -73,10 +73,20 @@ async function createLogin(response, email, password) {
     }
 }
 
+function checkPassword(email, password) {
+    return logins[email]["password"] === password;
+}
+
 async function readLogin(response, email, password) {
     await reloadLogins(JSONLoginfile);
     if (emailExists(email)) {
-        response.status(200).json({ email: email, password: password });
+        console.log(password);
+        if (checkPassword(email, password)) {
+            response.status(200).json({ email: email, password: password });
+        } else {
+            response.status(403).json({ error: `Incorrect Password` });
+        }
+        // response.status(200).json({ email: email, password: password });
     } else {
         response.status(404).json({ error: `Item '${email}' Not Found` });
     }
@@ -95,7 +105,7 @@ async function readItem(response, category) {
 }
 
 async function createItem(response, category, location, contact, time, image, id) {
-    console.log(id)
+    console.log(id);
     if (id === undefined) {
         // 400 - Bad Request
         response.status(400).json({ error: 'ID is required' });
@@ -210,11 +220,11 @@ app.get('*', (req, res) => {
     res.status(404).json({ message: 'U Req' });
 });
 
-let port = process.env.PORT;
-if (port === null || port === "") {
-    port = 3000;
-}
-
+// let port = process.env.PORT;
+// if (port === null || port === "") {
+//     port = 3000;
+// }
+let port = 3000;
 app.listen(port, () => {
     console.log(`U-Lost app listening at http://localhost:${port}`);
 });
