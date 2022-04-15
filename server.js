@@ -224,7 +224,6 @@ app.get('*', (req, res) => {
 // if (port === null || port === "") {
 //     port = 3000;
 // }
-let port = 3000;
 app.listen(port, () => {
     console.log(`U-Lost app listening at http://localhost:${port}`);
 });
