@@ -220,11 +220,11 @@ app.get('*', (req, res) => {
     res.status(404).json({ message: 'U Req' });
 });
 
-// let port = process.env.PORT;
-// if (port === null || port === "") {
-//     port = 3000;
-// }
-let port = 3000;
+let port = process.env.PORT;
+if (port === null || port === "") {
+    port = 3000;
+}
+
 app.listen(port, () => {
     console.log(`U-Lost app listening at http://localhost:${port}`);
 });
