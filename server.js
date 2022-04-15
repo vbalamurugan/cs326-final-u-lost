@@ -69,6 +69,7 @@ async function createLogin(response, email, password) {
         } else {
             response.status(403).json({ error: 'Email already in use' });
         }
+        console.log(logins)
     }
 }
 
@@ -94,12 +95,12 @@ async function readLogin(response, email, password) {
 async function readItem(response, category) {
     await reloadItems(JSONItemfile);
     const itemsInCategory = checkObjCategory(category)
-    if (itemsInCategory.length > 1) {
+    if (itemsInCategory.length > 0) {
         response.status(200).write(JSON.stringify(itemsInCategory));
         response.end();
     } else {
         // 404 - Not Found
-        response.status(404).json({ error: `No Items in this category`});
+        response.status(404).json({ error: `No Items in this category` });
     }
 }
 
@@ -110,7 +111,7 @@ async function createItem(response, category, location, contact, time, image, id
         response.status(400).json({ error: 'ID is required' });
     } else {
         await reloadItems(JSONItemfile);
-        items[id] = { category: category, location: location, contact: contact, time: time, image: image };
+        items[id] = { category: category, location: location, contact: contact, time: time, image: image, id: id };
         await saveItems();
         response.status(200).json({ category: category, location: location, contact: contact, time: time, image: image, id: id });
     }
@@ -143,25 +144,29 @@ async function deleteItem(response, id) {
     }
 }
 
-function checkObjCategory(category){
+function checkObjCategory(category) {
+    console.log(category)
     let itemsInCategory = [];
-    for(let obj in items){
-        if(items[obj]['category'] === category){
+    for (let obj in items) {
+        console.log(obj);
+        console.log(items[obj]);
+        if (items[obj]['category'] === category) {
             itemsInCategory.push(items[obj]);
         }
     }
+    console.log(itemsInCategory);
     return itemsInCategory;
 }
-  
+
 async function readItemsFinder(response, category) {
     await reloadItems(JSONItemfile);
     const itemsInCategory = checkObjCategory(category)
-    if (itemsInCategory.length > 1) {
+    if (itemsInCategory.length > 0) {
         response.status(200).write(JSON.stringify(itemsInCategory));
         response.end();
     } else {
         // 404 - Not Found
-        response.status(404).json({ error: `No Items in this category`});
+        response.status(404).json({ error: `No Items in this category` });
     }
 }
 
