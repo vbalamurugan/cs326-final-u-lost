@@ -119,3 +119,15 @@ Example Output:<img width="660" alt="Screen Shot 2022-04-09 at 4 38 22 PM" src="
 * 200 - OK - The request has succeeded. Succesfuly retrieved login details. 
 * 404 - Resource Not Found - The requested resource does not exist. The message body will contain more information.
 
+# CRUD OPERATIONS :
+
+##User creating a new account. Sends a "__POST__ __/login/create__" request and saves the credentials in the db. 
+<img width="965" alt="Screen Shot 2022-04-15 at 1 00 44 PM" src="https://user-images.githubusercontent.com/59256553/163599167-40572aeb-2937-4cb8-a92f-9d5be9d72dbc.png">
+
+##User logging in into their account. Sends a "__GET__ __/login/read__" request and checks the credentials in the db. 
+
+
+
+
+
+
