@@ -10,6 +10,6 @@ document.getElementById("submit").addEventListener("click", async (e) => {
     }
     else {
         console.log("no error");
-        location.href = "https://radiant-wave-67942.herokuapp.com/client/reporterFinder.html"
+        location.href = "https://protected-forest-50025.herokuapp.com/client/reporterFinder.html"
     }
 });
