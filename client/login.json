@@ -1,1 +1,6 @@
-{ "jimpa": { "name": "jimpa", "password": "123" } }
+{
+    "sidharth@gmail.com": {
+        "email": "sidharth@gmail.com",
+        "password": "nishantisbest"
+    }
+}
