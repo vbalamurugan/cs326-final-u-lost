@@ -3,3 +3,6 @@
 2. Install required dependencies by running 'npm install' in terminal. 
 3. Run server in terminal using the command 'node server.js'.
 4. Open broswer and run 'http://localhost:3000/client/login.html'.
+
+# Running U-Lost Web App using Heroku
+1. Go to https://immense-fjord-85744.herokuapp.com/client/login.html

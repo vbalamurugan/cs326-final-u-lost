@@ -1,4 +1,3 @@
-import * as crud from "./crud.js";
 let userType = ""
 document.getElementById("reporter-btn").onclick = function() {
     location.href = "https://immense-fjord-85744.herokuapp.com/client/categories.html";
@@ -9,6 +8,6 @@ document.getElementById("finder-btn").onclick = function() {
     userType = "finder";
 };
 
-export function getUserType(){
+export function getUserType() {
     return userType;
 }

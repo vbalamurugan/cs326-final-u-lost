@@ -1,50 +1,50 @@
-import{getUserType} from buttonrouting2.js
+import { getUserType } from "./buttonrouting2"
 
 document.getElementById("electronics-btn").onclick = function() {
     userType = getUserType()
-    if(userType === "finder"){
+    if (userType === "finder") {
         location.href = "https://immense-fjord-85744.herokuapp.com/client/itemListFinder.html";
-    }else{
+    } else {
         location.href = "https://immense-fjord-85744.herokuapp.com/client/itemListReporter.html";
     }
 };
 document.getElementById("idcards-btn").onclick = function() {
     userType = getUserType()
-    if(userType === "finder"){
+    if (userType === "finder") {
         location.href = "https://immense-fjord-85744.herokuapp.com/client/itemListFinder.html";
-    }else{
+    } else {
         location.href = "https://immense-fjord-85744.herokuapp.com/client/itemListReporter.html";
     }
 };
 document.getElementById("keys-btn").onclick = function() {
     userType = getUserType()
-    if(userType === "finder"){
+    if (userType === "finder") {
         location.href = "https://immense-fjord-85744.herokuapp.com/client/itemListFinder.html";
-    }else{
+    } else {
         location.href = "https://immense-fjord-85744.herokuapp.com/client/itemListReporter.html";
     }
 };
 document.getElementById("books-btn").onclick = function() {
     userType = getUserType()
-    if(userType === "finder"){
+    if (userType === "finder") {
         location.href = "https://immense-fjord-85744.herokuapp.com/client/itemListFinder.html";
-    }else{
+    } else {
         location.href = "https://immense-fjord-85744.herokuapp.com/client/itemListReporter.html";
     }
 };
 document.getElementById("clothing-btn").onclick = function() {
     userType = getUserType()
-    if(userType === "finder"){
+    if (userType === "finder") {
         location.href = "https://immense-fjord-85744.herokuapp.com/client/itemListFinder.html";
-    }else{
+    } else {
         location.href = "https://immense-fjord-85744.herokuapp.com/client/itemListReporter.html";
     }
 };
 document.getElementById("other-btn").onclick = function() {
     userType = getUserType()
-    if(userType === "finder"){
+    if (userType === "finder") {
         location.href = "https://immense-fjord-85744.herokuapp.com/client/itemListFinder.html";
-    }else{
+    } else {
         location.href = "https://immense-fjord-85744.herokuapp.com/client/itemListReporter.html";
     }
 };

@@ -2,6 +2,7 @@
 // https://expressjs.com/en/resources/middleware/morgan.html
 import express from 'express';
 import logger from 'morgan';
+import multer from 'multer';
 import { readFile, writeFile } from 'fs/promises';
 
 const JSONItemfile = './client/item.json';
@@ -213,6 +214,39 @@ app.delete('/reporter/delete', (req, res) => {
 app.get('/finder/read', (req, res) => {
     const options = req.query;
     readItemsFinder(res, options.category);
+});
+
+// AFTER : Create multer object
+const imageUpload = multer({
+    storage: multer.diskStorage(
+        {
+            destination: function (req, file, cb) {
+                cb(null, 'images/');
+            },
+            filename: function (req, file, cb) {
+                cb(
+                    null,
+                    new Date().valueOf() +
+                    '_' +
+                    file.originalname
+                );
+            }
+        }
+    ),
+});
+
+// @TODO Add routes
+// Image Upload Routes
+app.post('/image', imageUpload.single('image'), (req, res) => {
+    console.log(req.file);
+    res.json('/image api');
+});
+// Image Get Routes
+app.get('/image/:filename', (req, res) => {
+    const { filename } = req.params;
+    const dirname = path.resolve();
+    const fullfilepath = path.join(dirname, 'images/' + filename);
+    return res.sendFile(fullfilepath);
 });
 
 app.get('*', (req, res) => {
