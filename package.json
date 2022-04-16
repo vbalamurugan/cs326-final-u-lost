@@ -27,6 +27,7 @@
   "homepage": "https://github.com/vbalamurugan/cs326-final-u-lost#readme",
   "dependencies": {
     "express": "^4.17.3",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "multer": "^1.4.4"
   }
 }
