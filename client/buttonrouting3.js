@@ -1,4 +1,4 @@
-import { getUserType } from "./buttonrouting2"
+import { getUserType } from "./buttonrouting2.js"
 
 document.getElementById("electronics-btn").onclick = function() {
     userType = getUserType()
