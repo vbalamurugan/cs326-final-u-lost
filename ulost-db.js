@@ -24,15 +24,6 @@ export class UlostDatabase {
         this.collection = this.db.collection('login');
 
         const count = await this.collection.countDocuments();
-
-        // if (count === 0) {
-        //     await this.collection.insertMany([
-        //         { _id: '1', name: 'Artemis', age: 19 },
-        //         { _id: '2', name: 'Parzival', age: 17 },
-        //         { _id: '3', name: 'John', age: 30 },
-        //         { _id: '4', name: 'Mia', age: 22 },
-        //     ]);
-        // }
     }
 
     // Close the pool.
@@ -68,30 +59,17 @@ export class UlostDatabase {
         return res;
     }
 
-    // READ a user from the database.
-    async readPerson(id) {
-        const res = await this.collection.findOne({ _id: id });
+    // READ a login from the database.
+    async readLogin(email, password) {
+        const res = await this.collection.findOne({ email: email, password: password });
         return res;
     }
 
     // UPDATE a user in the database.
-<<<<<<< HEAD
-    async updateItem(category, location, contact, time, image, id) {
-        this.collection = this.db.collection(category);
-        // Note: the result received back from MongoDB does not contain the
-        // entire document that was inserted into the database. Instead, it
-        // only contains the _id of the document (and an acknowledged field).
-        const res = await this.collection.updateOne(
-            { id: id },
-            { $set: { category: category, location: location, contact: contact, time: time, image: image} }
-        );
-=======
     async updatePerson(id, name, age) {
         const res = await this.collection.updateOne({ _id: id }, { $set: { name, age } });
->>>>>>> 6128e384ee3c39f95272991a30b4f7b0d98ae1df
         return res;
     }
-
 
 
     // READ all people from the database.
