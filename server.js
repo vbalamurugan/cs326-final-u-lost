@@ -262,12 +262,15 @@
 // });
 
 import express from 'express';
+import logger from 'morgan';
 import { UlostDatabase } from './ulost-db.js';
 
-class PeopleServer {
+class UlostServer {
     constructor(dburl) {
         this.dburl = dburl;
         this.app = express();
+        this.app.use(logger('dev'));
+        this.app.use('/client', express.static('client'));
     }
 
     async initRoutes() {
@@ -277,8 +280,13 @@ class PeopleServer {
         this.app.post('/login/create', async (req, res) => {
             try {
                 const { email, password } = req.query;
-                const person = await self.db.createLogin(email, password);
-                res.send(JSON.stringify(person));
+                if (!this.emailExists(email)) {
+                    const person = await self.db.createLogin(email, password);
+                    res.send(JSON.stringify(person));
+                }
+                else {
+                    res.status(500).send("Email Already in Use");
+                }
             } catch (err) {
                 res.status(500).send(err);
             }
@@ -325,7 +333,6 @@ class PeopleServer {
         });
     }
 
-
     async initDb() {
         this.db = new UlostDatabase(this.dburl);
         await this.db.connect();
@@ -334,12 +341,24 @@ class PeopleServer {
     async start() {
         await this.initRoutes();
         await this.initDb();
+
         const port = 3000;
         this.app.listen(port, () => {
-            console.log(`PeopleServer listening on port ${port}!`);
+            console.log(`UlostServer listening on port ${port}!`);
         });
+    }
+
+    emailExists(email) {
+        const allEmails = this.db.readAllLogins();
+        allEmails.filter(x => x.email = email);
+        if (allEmails.length !== 0) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 }
 
-const server = new PeopleServer("mongodb+srv://sahil:lostandfound@cluster0.nwq8l.mongodb.net/myFirstDatabase?retryWrites=true&w=majority");
+const server = new UlostServer(`mongodb+srv://${process.env.USERNAME}:${process.env.PASSWORD}@cluster0.nwq8l.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`);
 server.start();
