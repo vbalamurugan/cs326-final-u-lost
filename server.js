@@ -350,12 +350,16 @@ class PeopleServer {
     async start() {
         await this.initRoutes();
         await this.initDb();
-        const port = process.env.PORT || 3000;
+        const port = 3000;
         this.app.listen(port, () => {
             console.log(`PeopleServer listening on port ${port}!`);
         });
     }
 }
 
+<<<<<<< HEAD
 const server = new PeopleServer("mongodb+srv://nishant:lostandfound@cluster0.nwq8l.mongodb.net/myFirstDatabase?retryWrites=true&w=majority");
+=======
+const server = new PeopleServer("mongodb+srv://sahil:lostandfound@cluster0.nwq8l.mongodb.net/myFirstDatabase?retryWrites=true&w=majority");
+>>>>>>> 933beda10e4642798a373e8b94fb2a2c62bcebf1
 server.start();
