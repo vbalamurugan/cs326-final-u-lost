@@ -65,10 +65,14 @@ export class UlostDatabase {
     }
 
     // UPDATE a user in the database.
-    async updatePerson(id, name, age) {
+    async updateItem(category, location, contact, time, image, id) {
+        this.collection = this.db.collection(category);
+        // Note: the result received back from MongoDB does not contain the
+        // entire document that was inserted into the database. Instead, it
+        // only contains the _id of the document (and an acknowledged field).
         const res = await this.collection.updateOne(
-            { _id: id },
-            { $set: { name, age } }
+            { id: id },
+            { $set: { category: category, location: location, contact: contact, time: time, image: image} }
         );
         return res;
     }

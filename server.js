@@ -293,37 +293,11 @@ class PeopleServer {
                 res.status(500).send(err);
             }
         });
-        this.app.get('/person/read', async (req, res) => {
+        this.app.put('/reporter/update', async (req, res) => {
             try {
-                const { id } = req.query;
-                const person = await self.db.readPerson(id);
-                res.send(JSON.stringify(person));
-            } catch (err) {
-                res.status(500).send(err);
-            }
-        });
-        this.app.get('/person/update', async (req, res) => {
-            try {
-                const { id, name, age } = req.query;
-                const person = await self.db.updatePerson(id, name, age);
-                res.send(JSON.stringify(person));
-            } catch (err) {
-                res.status(500).send(err);
-            }
-        });
-        this.app.get('/person/delete', async (req, res) => {
-            try {
-                const { id } = req.query;
-                const person = await self.db.deletePerson(id);
-                res.send(JSON.stringify(person));
-            } catch (err) {
-                res.status(500).send(err);
-            }
-        });
-        this.app.get('/person/all', async (req, res) => {
-            try {
-                const people = await self.db.readAllPeople();
-                res.send(JSON.stringify(people));
+                const { category, location, contact, time, image, id } = req.query;
+                const item = await self.db.updateItem(category, location, contact, time, image, id);
+                res.send(JSON.stringify(item));
             } catch (err) {
                 res.status(500).send(err);
             }
