@@ -274,7 +274,7 @@ class PeopleServer {
         // Note: when using arrow functions, the "this" binding is lost.
         const self = this;
 
-        this.app.post('/login/create', async (req, res) => {
+        this.app.post('/login/create', async(req, res) => {
             try {
                 const { email, password } = req.query;
                 const person = await self.db.createLogin(email, password);
@@ -284,7 +284,7 @@ class PeopleServer {
             }
         });
 
-        this.app.post('/reporter/create', async (req, res) => {
+        this.app.post('/reporter/create', async(req, res) => {
             try {
                 const { category, location, contact, time, image, id } = req.query;
                 const item = await self.db.createItem(category, location, contact, time, image, id);
@@ -302,8 +302,18 @@ class PeopleServer {
                 res.status(500).send(err);
             }
         });
+
+        this.app.delete('/reporter/delete', async(req, res) => {
+            try {
+                const { id, category } = req.query;
+                const item = await self.db.deleteItem(id, category);
+                res.send(JSON.stringify(item));
+            } catch (err) {
+                res.status(500).send(err);
+            }
+        });
     }
-    
+
 
     async initDb() {
         this.db = new UlostDatabase(this.dburl);
