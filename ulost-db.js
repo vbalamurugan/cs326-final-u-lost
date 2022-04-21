@@ -14,14 +14,14 @@ export class UlostDatabase {
         });
 
         // Get the database.
-        this.db = this.client.db('people');
+        this.db = this.client.db('ulost');
 
         // Init the database.
         await this.init();
     }
 
     async init() {
-        this.collection = this.db.collection('people');
+        this.collection = this.db.collection('login');
 
         const count = await this.collection.countDocuments();
 
@@ -41,41 +41,11 @@ export class UlostDatabase {
     }
 
     // CREATE a user in the database.
-    async createPerson(id, name, age) {
-        const res = await this.collection.insertOne({ _id: id, name, age });
+    async createLogin(email, password) {
+        const res = await this.collection.insertOne({ email: email, password: password });
         // Note: the result received back from MongoDB does not contain the
         // entire document that was inserted into the database. Instead, it
         // only contains the _id of the document (and an acknowledged field).
-        return res;
-    }
-
-    // READ a user from the database.
-    async readPerson(id) {
-        const res = await this.collection.findOne({ _id: id });
-        return res;
-    }
-
-    // UPDATE a user in the database.
-    async updatePerson(id, name, age) {
-        const res = await this.collection.updateOne(
-            { _id: id },
-            { $set: { name, age } }
-        );
-        return res;
-    }
-
-    // DELETE a user from the database.
-    async deletePerson(id) {
-        // Note: the result received back from MongoDB does not contain the
-        // entire document that was deleted from the database. Instead, it
-        // only contains the 'deletedCount' (and an acknowledged field).
-        const res = await this.collection.deleteOne({ _id: id });
-        return res;
-    }
-
-    // READ all people from the database.
-    async readAllPeople() {
-        const res = await this.collection.find({}).toArray();
         return res;
     }
 }
