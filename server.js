@@ -262,6 +262,8 @@
 // });
 
 import express from 'express';
+import logger from 'morgan';
+import multer from 'multer';
 import { UlostDatabase } from './ulost-db.js';
 
 class PeopleServer {
