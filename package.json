@@ -26,7 +26,9 @@
   },
   "homepage": "https://github.com/vbalamurugan/cs326-final-u-lost#readme",
   "dependencies": {
+    "dotenv": "^16.0.0",
     "express": "^4.17.3",
+    "mongodb": "^4.5.0",
     "morgan": "^1.10.0",
     "multer": "^1.4.4"
   }

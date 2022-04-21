@@ -274,15 +274,33 @@ class PeopleServer {
         // Note: when using arrow functions, the "this" binding is lost.
         const self = this;
 
-        this.app.get('/person/create', async (req, res) => {
+        // app.post('/reporter/create', (req, res) => {
+        //     const options = req.query;
+        //     createItem(res, options.category, options.location, options.contact, options.time, options.image, options.id);
+        // });
+
+        this.app.post('/reporter/create', async (req, res) => {
             try {
-                const { id, name, age } = req.query;
-                const person = await self.db.createPerson(id, name, age);
-                res.send(JSON.stringify(person));
+                const { category, location, contact, time, image, id } = req.query;
+                const item = await self.db.createItem(category, location, contact, time, image, id);
+                res.send(JSON.stringify(item));
             } catch (err) {
                 res.status(500).send(err);
             }
         });
+
+        // async function createItem(response, category, location, contact, time, image, id) {
+        //     console.log(id);
+        //     if (id === undefined) {
+        //         // 400 - Bad Request
+        //         response.status(400).json({ error: 'ID is required' });
+        //     } else {
+        //         await reloadItems(JSONItemfile);
+        //         items[id] = { category: category, location: location, contact: contact, time: time, image: image, id: id };
+        //         await saveItems();
+        //         response.status(200).json({ category: category, location: location, contact: contact, time: time, image: image, id: id });
+        //     }
+        // }
 
         this.app.get('/person/read', async (req, res) => {
             try {
@@ -325,7 +343,7 @@ class PeopleServer {
     }
 
     async initDb() {
-        this.db = new PeopleDatabase(this.dburl);
+        this.db = new UlostDatabase(this.dburl);
         await this.db.connect();
     }
 
@@ -339,5 +357,5 @@ class PeopleServer {
     }
 }
 
-const server = new PeopleServer(process.env.DATABASE_URL);
+const server = new PeopleServer("mongodb+srv://nishant:lostandfound@cluster0.nwq8l.mongodb.net/myFirstDatabase?retryWrites=true&w=majority");
 server.start();
