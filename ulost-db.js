@@ -23,7 +23,11 @@ export class UlostDatabase {
     async init() {
         this.collection = this.db.collection('login');
 
+<<<<<<< HEAD
         // const count = await this.collection.countDocuments();
+=======
+        const count = await this.collection.countDocuments();
+>>>>>>> e47b37347320fe57dad8dc55de3b1b27f8e3961d
 
         // if (count === 0) {
         //     await this.collection.insertMany([
@@ -41,8 +45,9 @@ export class UlostDatabase {
     }
 
     // CREATE a user in the database.
-    async createLogin(email, password) {
-        const res = await this.collection.insertOne({ email: email, password: password });
+    async createItem(category, location, contact, time, image, id) {
+        this.collection = this.db.collection(category);
+        const res = await this.collection.insertOne({ category: category, location: location, contact: contact, time: time, image: image, id: id });
         // Note: the result received back from MongoDB does not contain the
         // entire document that was inserted into the database. Instead, it
         // only contains the _id of the document (and an acknowledged field).

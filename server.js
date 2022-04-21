@@ -274,11 +274,73 @@ class PeopleServer {
         // Note: when using arrow functions, the "this" binding is lost.
         const self = this;
 
-        this.app.post('/login/create', async (req, res) => {
+        // app.post('/reporter/create', (req, res) => {
+        //     const options = req.query;
+        //     createItem(res, options.category, options.location, options.contact, options.time, options.image, options.id);
+        // });
+
+        this.app.post('/reporter/create', async (req, res) => {
             try {
+                const { category, location, contact, time, image, id } = req.query;
+                const item = await self.db.createItem(category, location, contact, time, image, id);
+                res.send(JSON.stringify(item));
+            } catch (err) {
+                res.status(500).send(err);
+            }
+        });
+
+        // async function createItem(response, category, location, contact, time, image, id) {
+        //     console.log(id);
+        //     if (id === undefined) {
+        //         // 400 - Bad Request
+        //         response.status(400).json({ error: 'ID is required' });
+        //     } else {
+        //         await reloadItems(JSONItemfile);
+        //         items[id] = { category: category, location: location, contact: contact, time: time, image: image, id: id };
+        //         await saveItems();
+        //         response.status(200).json({ category: category, location: location, contact: contact, time: time, image: image, id: id });
+        //     }
+        // }
+
+        this.app.get('/person/read', async (req, res) => {
+            try {
+                const { id } = req.query;
+                const person = await self.db.readPerson(id);
+                res.send(JSON.stringify(person));
+            } catch (err) {
+                res.status(500).send(err);
+            }
+        });
+
+        this.app.get('/person/update', async (req, res) => {
+            try {
+<<<<<<< HEAD
                 const { email, password } = req.query;
                 const person = await self.db.createLogin(email, password);
+=======
+                const { id, name, age } = req.query;
+                const person = await self.db.updatePerson(id, name, age);
+>>>>>>> e47b37347320fe57dad8dc55de3b1b27f8e3961d
                 res.send(JSON.stringify(person));
+            } catch (err) {
+                res.status(500).send(err);
+            }
+        });
+
+        this.app.get('/person/delete', async (req, res) => {
+            try {
+                const { id } = req.query;
+                const person = await self.db.deletePerson(id);
+                res.send(JSON.stringify(person));
+            } catch (err) {
+                res.status(500).send(err);
+            }
+        });
+
+        this.app.get('/person/all', async (req, res) => {
+            try {
+                const people = await self.db.readAllPeople();
+                res.send(JSON.stringify(people));
             } catch (err) {
                 res.status(500).send(err);
             }
@@ -300,5 +362,9 @@ class PeopleServer {
     }
 }
 
+<<<<<<< HEAD
+const server = new PeopleServer("mongodb+srv://nishant:lostandfound@cluster0.nwq8l.mongodb.net/myFirstDatabase?retryWrites=true&w=majority");
+=======
 const server = new PeopleServer("mongodb+srv://sahil:lostandfound@cluster0.nwq8l.mongodb.net/myFirstDatabase?retryWrites=true&w=majority");
+>>>>>>> 933beda10e4642798a373e8b94fb2a2c62bcebf1
 server.start();
