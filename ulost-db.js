@@ -75,7 +75,6 @@ export class UlostDatabase {
     }
 
     // UPDATE a user in the database.
-<<<<<<< HEAD
     async updateItem(category, location, contact, time, image, id) {
         this.collection = this.db.collection(category);
         // Note: the result received back from MongoDB does not contain the
@@ -85,11 +84,8 @@ export class UlostDatabase {
             { id: id },
             { $set: { category: category, location: location, contact: contact, time: time, image: image} }
         );
-=======
-    async updatePerson(id, name, age) {
-        const res = await this.collection.updateOne({ _id: id }, { $set: { name, age } });
->>>>>>> 6128e384ee3c39f95272991a30b4f7b0d98ae1df
         return res;
+
     }
 
 
