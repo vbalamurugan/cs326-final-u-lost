@@ -165,3 +165,8 @@ Example Output :<img width="660" alt="Screen Shot 2022-04-09 at 4 38 22 PM" src=
 
 #### User can click on a particular item in the list and view its specific details. If it is the item they are searching for they can click on the 'It is mine!' button to let the reporter know. 
 <img width="970" alt="Screen Shot 2022-04-15 at 1 56 43 PM" src="https://user-images.githubusercontent.com/59256553/163604639-e6a4ca54-bd6c-4acb-be62-39fcc4cf6980.png">
+
+Note: We have not yet added the sending/saving of image since we are writing the information to file, and images cannot be written to a file (We couldn't find a decent way to do it). We will be implementing this feature in milestone 3 where we can save the images in a database.
+
+# Heroku URL
+https://immense-fjord-85744.herokuapp.com/client/login.html
