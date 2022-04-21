@@ -266,35 +266,44 @@ import logger from 'morgan';
 import multer from 'multer';
 import { UlostDatabase } from './ulost-db.js';
 
-class PeopleServer {
+class UlostServer {
     constructor(dburl) {
         this.dburl = dburl;
         this.app = express();
+        this.app.use(logger('dev'));
+        this.app.use('/client', express.static('client'));
     }
 
     async initRoutes() {
         // Note: when using arrow functions, the "this" binding is lost.
         const self = this;
 
-        this.app.post('/login/create', async(req, res) => {
+        this.app.post('/login/create', async (req, res) => {
             try {
                 const { email, password } = req.query;
-                const person = await self.db.createLogin(email, password);
-                res.send(JSON.stringify(person));
+                if (!this.emailExists(email)) {
+                    const person = await self.db.createLogin(email, password);
+                    res.send(JSON.stringify(person));
+                }
+                else {
+                    res.status(500).send("Email Already in Use");
+                }
             } catch (err) {
                 res.status(500).send(err);
             }
         });
 
-        this.app.post('/reporter/create', async(req, res) => {
+        this.app.post('/reporter/create', async (req, res) => {
             try {
-                const { category, location, contact, time, image, id } = req.query;
+                const { category, location, contact, time, image} = req.query;
+                const id = Date.now()
                 const item = await self.db.createItem(category, location, contact, time, image, id);
                 res.send(JSON.stringify(item));
             } catch (err) {
                 res.status(500).send(err);
             }
         });
+
         this.app.put('/reporter/update', async (req, res) => {
             try {
                 const { category, location, contact, time, image, id } = req.query;
@@ -305,7 +314,7 @@ class PeopleServer {
             }
         });
 
-        this.app.delete('/reporter/delete', async(req, res) => {
+        this.app.delete('/reporter/delete', async (req, res) => {
             try {
                 const { id, category } = req.query;
                 const item = await self.db.deleteItem(id, category);
@@ -314,8 +323,17 @@ class PeopleServer {
                 res.status(500).send(err);
             }
         });
-    }
 
+        this.app.get('/login/read', async (req, res) => {
+            try {
+                const { email, password } = req.query;
+                const login = await self.db.readLogin(email, password);
+                res.send(JSON.stringify(login));
+            } catch (err) {
+                res.status(500).send(err);
+            }
+        });
+    }
 
     async initDb() {
         this.db = new UlostDatabase(this.dburl);
@@ -325,12 +343,25 @@ class PeopleServer {
     async start() {
         await this.initRoutes();
         await this.initDb();
+
         const port = 3000;
         this.app.listen(port, () => {
-            console.log(`PeopleServer listening on port ${port}!`);
+            console.log(`UlostServer listening on port ${port}!`);
         });
     }
+
+    emailExists(email) {
+        const allEmails = this.db.readAllLogins();
+        allEmails.filter(x => x.email = email);
+        if (allEmails.length !== 0) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    
 }
 
-const server = new PeopleServer("mongodb+srv://sahil:lostandfound@cluster0.nwq8l.mongodb.net/myFirstDatabase?retryWrites=true&w=majority");
+const server = new UlostServer(`mongodb+srv://${process.env.USERNAME}:${process.env.PASSWORD}@cluster0.nwq8l.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`);
 server.start();
