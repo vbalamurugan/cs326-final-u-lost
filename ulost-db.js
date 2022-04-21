@@ -39,7 +39,7 @@ export class UlostDatabase {
     async close() {
         this.client.close();
     }
-    
+
     // CREATE a user in the database.
     async createItem(category, location, contact, time, image, id) {
         this.collection = this.db.collection(category);
@@ -58,29 +58,29 @@ export class UlostDatabase {
         return res;
     }
 
-     // READ a user from the database.
-     async readPerson(id) {
+    // DELETE a user from the database.
+    async deleteItem(id, category) {
+        // Note: the result received back from MongoDB does not contain the
+        // entire document that was deleted from the database. Instead, it
+        // only contains the 'deletedCount' (and an acknowledged field).
+        this.collection = this.db.collection(category);
+        const res = await this.collection.deleteOne({ id: id });
+        return res;
+    }
+
+    // READ a user from the database.
+    async readPerson(id) {
         const res = await this.collection.findOne({ _id: id });
         return res;
     }
 
     // UPDATE a user in the database.
     async updatePerson(id, name, age) {
-        const res = await this.collection.updateOne(
-            { _id: id },
-            { $set: { name, age } }
-        );
+        const res = await this.collection.updateOne({ _id: id }, { $set: { name, age } });
         return res;
     }
 
-    // DELETE a user from the database.
-    async deletePerson(id) {
-        // Note: the result received back from MongoDB does not contain the
-        // entire document that was deleted from the database. Instead, it
-        // only contains the 'deletedCount' (and an acknowledged field).
-        const res = await this.collection.deleteOne({ _id: id });
-        return res;
-    }
+
 
     // READ all people from the database.
     async readAllPeople() {

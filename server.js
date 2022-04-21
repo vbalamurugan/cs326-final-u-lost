@@ -274,7 +274,7 @@ class PeopleServer {
         // Note: when using arrow functions, the "this" binding is lost.
         const self = this;
 
-        this.app.post('/login/create', async (req, res) => {
+        this.app.post('/login/create', async(req, res) => {
             try {
                 const { email, password } = req.query;
                 const person = await self.db.createLogin(email, password);
@@ -284,7 +284,7 @@ class PeopleServer {
             }
         });
 
-        this.app.post('/reporter/create', async (req, res) => {
+        this.app.post('/reporter/create', async(req, res) => {
             try {
                 const { category, location, contact, time, image, id } = req.query;
                 const item = await self.db.createItem(category, location, contact, time, image, id);
@@ -293,7 +293,18 @@ class PeopleServer {
                 res.status(500).send(err);
             }
         });
-        this.app.get('/person/read', async (req, res) => {
+
+        this.app.delete('/reporter/delete', async(req, res) => {
+            try {
+                const { id, category } = req.query;
+                const item = await self.db.deleteItem(id, category);
+                res.send(JSON.stringify(item));
+            } catch (err) {
+                res.status(500).send(err);
+            }
+        });
+
+        this.app.get('/person/read', async(req, res) => {
             try {
                 const { id } = req.query;
                 const person = await self.db.readPerson(id);
@@ -302,7 +313,7 @@ class PeopleServer {
                 res.status(500).send(err);
             }
         });
-        this.app.get('/person/update', async (req, res) => {
+        this.app.get('/person/update', async(req, res) => {
             try {
                 const { id, name, age } = req.query;
                 const person = await self.db.updatePerson(id, name, age);
@@ -311,16 +322,8 @@ class PeopleServer {
                 res.status(500).send(err);
             }
         });
-        this.app.get('/person/delete', async (req, res) => {
-            try {
-                const { id } = req.query;
-                const person = await self.db.deletePerson(id);
-                res.send(JSON.stringify(person));
-            } catch (err) {
-                res.status(500).send(err);
-            }
-        });
-        this.app.get('/person/all', async (req, res) => {
+
+        this.app.get('/person/all', async(req, res) => {
             try {
                 const people = await self.db.readAllPeople();
                 res.send(JSON.stringify(people));
@@ -329,7 +332,7 @@ class PeopleServer {
             }
         });
     }
-    
+
 
     async initDb() {
         this.db = new UlostDatabase(this.dburl);
