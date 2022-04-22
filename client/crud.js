@@ -55,26 +55,26 @@ export async function readItemsFinder(category) {
     }
 }
 
-export async function createItem(category, location, contact, time, image, id) {
-    const response = await fetch(`/reporter/create?category=${category}&location=${location}&contact=${contact}&time=${time}&image=${image}&id=${id}`, {
+export async function createItem(category, location, contact, time, image) {
+    const response = await fetch(`/reporter/create?category=${category}&location=${location}&contact=${contact}&time=${time}&image=${image}}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ category: category, location: location, contact: contact, time: time, image: image, id: id }),
+        body: JSON.stringify({ category: category, location: location, contact: contact, time: time, image: image}),
     });
     const data = await response.json();
     return data;
 }
 
-export async function updateItem(category, location, contact, time, image, id) {
+export async function updateItem(location, contact, time, image, id) {
     try {
-        const response = await fetch(`/reporter/update?category=${category}&location=${location}&contact=${contact}&time=${time}&image=${image}&id=${id}`, {
+        const response = await fetch(`/reporter/update?location=${location}&contact=${contact}&time=${time}&image=${image}&id=${id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ category: category, location: location, contact: contact, time: time, image: image, id: id }),
+            body: JSON.stringify({location: location, contact: contact, time: time, image: image, id: id }),
         });
         const data = await response.json();
         return data;
@@ -97,4 +97,23 @@ export async function deleteItem(id) {
     } catch (err) {
         console.log(err);
     }
+}
+
+export async function createImage(image) {
+    const formData = new FormData();
+    formData.append("image", image.files[0]);
+    console.log(image);
+    const response = await fetch(`/image`, {
+        method: 'POST',
+        body: formData, 
+    })
+    .then(response => response.json());
+
+    return response;
+    // console.log(response)
+    // console.log("here2")
+    // const data = await response.blob();
+    // console.log("here2")
+    // console.log(data)
+    // return data;
 }

@@ -5,9 +5,11 @@ document.getElementById("addItem").addEventListener("click", async (e) => {
     const time = document.getElementById("time").value;
     const location = document.getElementById("location").value;
     const contact = document.getElementById("contact").value;
-    const image = document.getElementById("image").value;
-    const id = document.getElementById("id").value;
-    const newItem = await crud.createItem(category, location, contact, time, image, id);
+    const image = document.getElementById("image");
+    console.log("image");
+    const newImg = await crud.createImage(image);
+    console.log("HERE!!!");
+    const newItem = await crud.createItem(category, location, contact, time, image);
     window.location.reload();
 });
 
@@ -79,7 +81,7 @@ async function CreateTableFromJSON() {
             tabCell.setAttribute("data-bs-target", "#exampleModal");
             tabCell.innerHTML = myBooks[i][col[j]];
             tabCell.addEventListener('click', () => {
-                document.getElementById('id2').value = myBooks[i].id;
+                // document.getElementById('id2').value = myBooks[i].id;
                 document.getElementById('category2').value = myBooks[i].category;
                 document.getElementById('location2').value = myBooks[i].location;
                 document.getElementById('time2').value = myBooks[i].time;
