@@ -272,6 +272,24 @@ class UlostServer {
         this.app = express();
         this.app.use(logger('dev'));
         this.app.use('/client', express.static('client'));
+        // AFTER : Create multer object
+        this.imageUpload = multer({
+            storage: multer.diskStorage(
+                {
+                    destination: function (req, file, cb) {
+                        cb(null, 'images/');
+                    },
+                    filename: function (req, file, cb) {
+                        cb(
+                            null,
+                            new Date().valueOf() +
+                            '_' +
+                            file.originalname
+                        );
+                    }
+                }
+            ),
+        });
     }
 
     async initRoutes() {
@@ -338,6 +356,21 @@ class UlostServer {
                 res.status(500).send(err);
             }
         });
+
+        // @TODO Add routes
+        // Image Upload Routes
+        this.app.post('/image', imageUpload.single('image'), (req, res) => {
+            console.log(req.file);
+            res.json('/image api');
+        });
+        // Image Get Routes
+        this.app.get('/image/:filename', (req, res) => {
+            const { filename } = req.params;
+            const dirname = path.resolve();
+            const fullfilepath = path.join(dirname, 'images/' + filename);
+            return res.sendFile(fullfilepath);
+        });
+        
     }
 
     async initDb() {
@@ -365,15 +398,11 @@ class UlostServer {
             return false;
         }
     }
-<<<<<<< HEAD
-    
-=======
 
     checkPassword(obj, password) {
         return obj["password"] === password;
     }
 
->>>>>>> d7de6479b0bdbfa81c10eca201b02181de2c70c6
 }
 
 const server = new UlostServer(`mongodb+srv://${process.env.USERNAME}:${process.env.PASSWORD}@cluster0.nwq8l.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`);
