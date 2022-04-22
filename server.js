@@ -327,8 +327,13 @@ class UlostServer {
         this.app.get('/login/read', async (req, res) => {
             try {
                 const { email, password } = req.query;
-                const login = await self.db.readLogin(email, password);
-                res.send(JSON.stringify(login));
+                const login = await self.db.readLogin(email);
+                if (this.checkPassword(login, password)) {
+                    res.send(JSON.stringify(login));
+                }
+                else {
+                    res.status(500).send("Wrong password");
+                }
             } catch (err) {
                 res.status(500).send(err);
             }
@@ -360,7 +365,15 @@ class UlostServer {
             return false;
         }
     }
+<<<<<<< HEAD
     
+=======
+
+    checkPassword(obj, password) {
+        return obj["password"] === password;
+    }
+
+>>>>>>> d7de6479b0bdbfa81c10eca201b02181de2c70c6
 }
 
 const server = new UlostServer(`mongodb+srv://${process.env.USERNAME}:${process.env.PASSWORD}@cluster0.nwq8l.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`);

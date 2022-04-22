@@ -60,8 +60,8 @@ export class UlostDatabase {
     }
 
     // READ a login from the database.
-    async readLogin(email, password) {
-        const res = await this.collection.findOne({ email: email, password: password });
+    async readLogin(email) {
+        const res = await this.collection.findOne({ email: email });
         return res;
     }
 
