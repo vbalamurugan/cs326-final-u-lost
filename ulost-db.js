@@ -21,8 +21,8 @@ export class UlostDatabase {
     }
 
     async init() {
-        this.collection = this.db.collection('items');
-
+        this.collection = this.db.collection('login');
+        this.collectionitems = this.db.collection("items");
         const count = await this.collection.countDocuments();
     }
 
@@ -33,8 +33,7 @@ export class UlostDatabase {
 
     // CREATE a user in the database.
     async createItem(category, location, contact, time, image, id) {
-        this.collection = this.db.collection(category);
-        const res = await this.collection.insertOne({ category: category, location: location, contact: contact, time: time, image: image, id: id });
+        const res = await this.collectionitems.insertOne({ category: category, location: location, contact: contact, time: time, image: image, _id: id });
         // Note: the result received back from MongoDB does not contain the
         // entire document that was inserted into the database. Instead, it
         // only contains the _id of the document (and an acknowledged field).
@@ -50,12 +49,12 @@ export class UlostDatabase {
     }
 
     // DELETE a user from the database.
-    async deleteItem(id, category) {
+    async deleteItem(id) {
         // Note: the result received back from MongoDB does not contain the
         // entire document that was deleted from the database. Instead, it
         // only contains the 'deletedCount' (and an acknowledged field).
-        this.collection = this.db.collection(category);
-        const res = await this.collection.deleteOne({ id: id });
+        id = parseInt(id);
+        const res = await this.collectionitems.deleteOne({ _id: id });
         return res;
     }
 
@@ -76,15 +75,16 @@ export class UlostDatabase {
     }
 
     // UPDATE a user in the database.
-    async updateItem(category, location, contact, time, image, id) {
-        this.collection = this.db.collection(category);
+    async updateItem(location, contact, time, image, id) {
         // Note: the result received back from MongoDB does not contain the
         // entire document that was inserted into the database. Instead, it
         // only contains the _id of the document (and an acknowledged field).
-        const res = await this.collection.updateOne(
-            { id: id },
-            { $set: { category: category, location: location, contact: contact, time: time, image: image } }
+        id = parseInt(id);
+        const res = await this.collectionitems.updateOne(
+            { _id: id },
+            { $set: { location: location, contact: contact, time: time, image: image} },
         );
+        console.log(res)
         return res;
     }
 

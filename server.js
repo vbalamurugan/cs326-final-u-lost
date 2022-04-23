@@ -263,6 +263,7 @@
 
 import express from 'express';
 import logger from 'morgan';
+import multer from 'multer';
 import { UlostDatabase } from './ulost-db.js';
 
 class UlostServer {
@@ -272,6 +273,25 @@ class UlostServer {
         this.app.use(logger('dev'));
         this.app.use(express.json());
         this.app.use('/client', express.static('client'));
+        this.app.use(express.json());
+        // AFTER : Create multer object
+        this.imageUpload = multer({
+            storage: multer.diskStorage(
+                {
+                    destination: function (req, file, cb) {
+                        cb(null, 'images/');
+                    },
+                    filename: function (req, file, cb) {
+                        cb(
+                            null,
+                            new Date().valueOf() +
+                            '_' +
+                            file.originalname
+                        );
+                    }
+                }
+            ),
+        });
     }
 
     async initRoutes() {
@@ -295,7 +315,8 @@ class UlostServer {
 
         this.app.post('/reporter/create', async (req, res) => {
             try {
-                const { category, location, contact, time, image, id } = req.query;
+                const { category, location, contact, time, image} = req.query;
+                const id = Date.now();
                 const item = await self.db.createItem(category, location, contact, time, image, id);
                 res.send(JSON.stringify(item));
             } catch (err) {
@@ -305,8 +326,8 @@ class UlostServer {
 
         this.app.put('/reporter/update', async (req, res) => {
             try {
-                const { category, location, contact, time, image, id } = req.query;
-                const item = await self.db.updateItem(category, location, contact, time, image, id);
+                const {location, contact, time, image, id } = req.query;
+                const item = await self.db.updateItem(location, contact, time, image, id);
                 res.send(JSON.stringify(item));
             } catch (err) {
                 res.status(500).send(err);
@@ -315,8 +336,8 @@ class UlostServer {
 
         this.app.delete('/reporter/delete', async (req, res) => {
             try {
-                const { id, category } = req.query;
-                const item = await self.db.deleteItem(id, category);
+                const { id} = req.query;
+                const item = await self.db.deleteItem(id);
                 res.send(JSON.stringify(item));
             } catch (err) {
                 res.status(500).send(err);
