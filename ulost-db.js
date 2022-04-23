@@ -71,10 +71,7 @@ export class UlostDatabase {
         // Note: the result received back from MongoDB does not contain the
         // entire document that was inserted into the database. Instead, it
         // only contains the _id of the document (and an acknowledged field).
-        const res = await this.collection.updateOne(
-            { id: id },
-            { $set: { category: category, location: location, contact: contact, time: time, image: image } }
-        );
+        const res = await this.collection.updateOne({ id: id }, { $set: { category: category, location: location, contact: contact, time: time, image: image } });
         return res;
     }
 

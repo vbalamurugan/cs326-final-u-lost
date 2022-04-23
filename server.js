@@ -277,14 +277,13 @@ class UlostServer {
         // Note: when using arrow functions, the "this" binding is lost.
         const self = this;
 
-        this.app.post('/login/create', async (req, res) => {
+        this.app.post('/login/create', async(req, res) => {
             try {
                 const { email, password } = req.query;
                 if (!this.emailExists(email)) {
                     const person = await self.db.createLogin(email, password);
                     res.send(JSON.stringify(person));
-                }
-                else {
+                } else {
                     res.status(500).send("Email Already in Use");
                 }
             } catch (err) {
@@ -292,7 +291,7 @@ class UlostServer {
             }
         });
 
-        this.app.post('/reporter/create', async (req, res) => {
+        this.app.post('/reporter/create', async(req, res) => {
             try {
                 const { category, location, contact, time, image, id } = req.query;
                 const item = await self.db.createItem(category, location, contact, time, image, id);
@@ -302,7 +301,7 @@ class UlostServer {
             }
         });
 
-        this.app.put('/reporter/update', async (req, res) => {
+        this.app.put('/reporter/update', async(req, res) => {
             try {
                 const { category, location, contact, time, image, id } = req.query;
                 const item = await self.db.updateItem(category, location, contact, time, image, id);
@@ -312,7 +311,7 @@ class UlostServer {
             }
         });
 
-        this.app.delete('/reporter/delete', async (req, res) => {
+        this.app.delete('/reporter/delete', async(req, res) => {
             try {
                 const { id, category } = req.query;
                 const item = await self.db.deleteItem(id, category);
@@ -322,14 +321,13 @@ class UlostServer {
             }
         });
 
-        this.app.get('/login/read', async (req, res) => {
+        this.app.get('/login/read', async(req, res) => {
             try {
                 const { email, password } = req.query;
                 const login = await self.db.readLogin(email);
                 if (this.checkPassword(login, password)) {
                     res.send(JSON.stringify(login));
-                }
-                else {
+                } else {
                     res.status(500).send("Wrong password");
                 }
             } catch (err) {
@@ -358,8 +356,7 @@ class UlostServer {
         allEmails.filter(x => x.email = email);
         if (allEmails.length !== 0) {
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     }

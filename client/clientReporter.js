@@ -1,6 +1,6 @@
 import * as crud from "./crud.js";
 
-document.getElementById("addItem").addEventListener("click", async (e) => {
+document.getElementById("addItem").addEventListener("click", async(e) => {
     const category = document.getElementById("category").value;
     const time = document.getElementById("time").value;
     const location = document.getElementById("location").value;
@@ -11,7 +11,7 @@ document.getElementById("addItem").addEventListener("click", async (e) => {
     window.location.reload();
 });
 
-document.getElementById("updateButton").addEventListener("click", async (e) => {
+document.getElementById("updateButton").addEventListener("click", async(e) => {
     const category = document.getElementById("category2").value;
     const time = document.getElementById("time2").value;
     const location = document.getElementById("location2").value;
@@ -23,7 +23,7 @@ document.getElementById("updateButton").addEventListener("click", async (e) => {
     window.location.reload();
 });
 
-document.getElementById("deleteButton").addEventListener("click", async (e) => {
+document.getElementById("deleteButton").addEventListener("click", async(e) => {
     const id = document.getElementById("id2").value;
     const newItem = await crud.deleteItem(id);
     window.location.reload();
@@ -39,7 +39,7 @@ async function CreateTableFromJSON() {
         return;
     }
     let itemdata = await response.json();
-
+    console.log(itemdata)
     for (let val of Object.keys(itemdata)) {
         myBooks.push(itemdata[val])
     }
