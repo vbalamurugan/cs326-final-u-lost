@@ -5,9 +5,11 @@ document.getElementById("addItem").addEventListener("click", async(e) => {
     const time = document.getElementById("time").value;
     const location = document.getElementById("location").value;
     const contact = document.getElementById("contact").value;
-    const image = document.getElementById("image").value;
-    const id = document.getElementById("id").value;
-    const newItem = await crud.createItem(category, location, contact, time, image, id);
+    const image = document.getElementById("image");
+    console.log("image");
+    const newImg = await crud.createImage(image);
+    console.log("HERE!!!");
+    const newItem = await crud.createItem(category, location, contact, time, image);
     window.location.reload();
 });
 
@@ -32,21 +34,27 @@ document.getElementById("deleteButton").addEventListener("click", async(e) => {
 
 async function CreateTableFromJSON() {
     let myBooks = [];
-    const response = await fetch("./item.json")
+    //const response = await fetch("./item.json");
 
-    if (!response.ok) {
-        console.log("Failed to load");
-        return;
-    }
-    let itemdata = await response.json();
-    console.log(itemdata)
+    // const response = await fetch(`/reporter/read?category=${category}`, { method: "GET" });
+    // console.log(response)
+    // if (!response.ok) {
+    //     console.log("Failed to load");
+    //     return;
+    // }
+
+    // let itemdata = await response.json();
+    let itemdata = await crud.readItem(localStorage.getItem('category'))
+
+    console.log("itemdata", itemdata)
     for (let val of Object.keys(itemdata)) {
         myBooks.push(itemdata[val])
     }
+    console.log(myBooks)
 
-    var col = [];
-    for (var i = 0; i < myBooks.length; i++) {
-        for (var key in myBooks[i]) {
+    let col = [];
+    for (let i = 0; i < myBooks.length; i++) {
+        for (let key in myBooks[i]) {
             if (col.indexOf(key) === -1) {
                 col.push(key);
             }
@@ -79,7 +87,7 @@ async function CreateTableFromJSON() {
             tabCell.setAttribute("data-bs-target", "#exampleModal");
             tabCell.innerHTML = myBooks[i][col[j]];
             tabCell.addEventListener('click', () => {
-                document.getElementById('id2').value = myBooks[i].id;
+                // document.getElementById('id2').value = myBooks[i].id;
                 document.getElementById('category2').value = myBooks[i].category;
                 document.getElementById('location2').value = myBooks[i].location;
                 document.getElementById('time2').value = myBooks[i].time;

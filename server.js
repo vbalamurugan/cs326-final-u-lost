@@ -263,6 +263,7 @@
 
 import express from 'express';
 import logger from 'morgan';
+import multer from 'multer';
 import { UlostDatabase } from './ulost-db.js';
 
 class UlostServer {
@@ -270,7 +271,25 @@ class UlostServer {
         this.dburl = dburl;
         this.app = express();
         this.app.use(logger('dev'));
+        this.app.use(express.json());
         this.app.use('/client', express.static('client'));
+        this.app.use(express.json());
+        // AFTER : Create multer object
+        this.imageUpload = multer({
+            storage: multer.diskStorage({
+                destination: function(req, file, cb) {
+                    cb(null, 'images/');
+                },
+                filename: function(req, file, cb) {
+                    cb(
+                        null,
+                        new Date().valueOf() +
+                        '_' +
+                        file.originalname
+                    );
+                }
+            }),
+        });
     }
 
     async initRoutes() {
@@ -293,7 +312,8 @@ class UlostServer {
 
         this.app.post('/reporter/create', async(req, res) => {
             try {
-                const { category, location, contact, time, image, id } = req.query;
+                const { category, location, contact, time, image } = req.query;
+                const id = Date.now();
                 const item = await self.db.createItem(category, location, contact, time, image, id);
                 res.send(JSON.stringify(item));
             } catch (err) {
@@ -303,8 +323,8 @@ class UlostServer {
 
         this.app.put('/reporter/update', async(req, res) => {
             try {
-                const { category, location, contact, time, image, id } = req.query;
-                const item = await self.db.updateItem(category, location, contact, time, image, id);
+                const { location, contact, time, image, id } = req.query;
+                const item = await self.db.updateItem(location, contact, time, image, id);
                 res.send(JSON.stringify(item));
             } catch (err) {
                 res.status(500).send(err);
@@ -313,8 +333,8 @@ class UlostServer {
 
         this.app.delete('/reporter/delete', async(req, res) => {
             try {
-                const { id, category } = req.query;
-                const item = await self.db.deleteItem(id, category);
+                const { id } = req.query;
+                const item = await self.db.deleteItem(id);
                 res.send(JSON.stringify(item));
             } catch (err) {
                 res.status(500).send(err);
@@ -330,6 +350,22 @@ class UlostServer {
                 } else {
                     res.status(500).send("Wrong password");
                 }
+            } catch (err) {
+                res.status(500).send(err);
+            }
+        });
+
+        this.app.get('/reporter/read', async(req, res) => {
+            try {
+                const { category } = req.query;
+                const resArray = await self.db.readItem(category);
+                //console.log(resArray);
+                let resObj = {};
+                for (let i = 0; i < resArray.length; ++i) {
+                    resObj[resArray[i]._id] = resArray[i];
+                }
+                console.log(resObj);
+                res.send(JSON.stringify(resObj));
             } catch (err) {
                 res.status(500).send(err);
             }
@@ -367,5 +403,5 @@ class UlostServer {
 
 }
 
-const server = new UlostServer(`mongodb+srv://${process.env.USERNAME}:${process.env.PASSWORD}@cluster0.nwq8l.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`);
+const server = new UlostServer(`mongodb+srv://SidharthSaluja:SidharthSaluja@cluster0.nwq8l.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`);
 server.start();
