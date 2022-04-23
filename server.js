@@ -270,6 +270,7 @@ class UlostServer {
         this.dburl = dburl;
         this.app = express();
         this.app.use(logger('dev'));
+        this.app.use(express.json());
         this.app.use('/client', express.static('client'));
     }
 
@@ -336,6 +337,22 @@ class UlostServer {
                 res.status(500).send(err);
             }
         });
+
+        this.app.get('/reporterFinder/read', async (req, res) => {
+            try {
+                const { category } = req.query;
+                const resArray = await self.db.readItem(category);
+                //console.log(resArray);
+                let resObj = {};
+                for (let i = 0; i< resArray.length; ++i) {
+                    resObj[resArray[i]._id] = resArray[i];
+                }
+                console.log(resObj);
+                res.send(JSON.stringify(resObj));
+            } catch (err) {
+                res.status(500).send(err);
+            }
+        });
     }
 
     async initDb() {
@@ -370,5 +387,5 @@ class UlostServer {
 
 }
 
-const server = new UlostServer(`mongodb+srv://${process.env.USERNAME}:${process.env.PASSWORD}@cluster0.nwq8l.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`);
+const server = new UlostServer(`mongodb+srv://SidharthSaluja:SidharthSaluja@cluster0.nwq8l.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`);
 server.start();

@@ -21,7 +21,7 @@ export class UlostDatabase {
     }
 
     async init() {
-        this.collection = this.db.collection('login');
+        this.collection = this.db.collection('items');
 
         const count = await this.collection.countDocuments();
     }
@@ -63,6 +63,16 @@ export class UlostDatabase {
     async readLogin(email) {
         const res = await this.collection.findOne({ email: email });
         return res;
+    }
+
+    // READ an item from the database.
+    async readItem(category) {
+        let resObj = {};
+        //returns cursor (collection) of all items with this specific category
+        const res = await this.collection.find({ category: category });
+        //convert the cursor to an array and return it
+        const resArray = res.toArray();
+        return resArray;
     }
 
     // UPDATE a user in the database.

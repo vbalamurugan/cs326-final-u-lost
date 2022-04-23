@@ -8,7 +8,8 @@ document.getElementById("keys-btn").addEventListener("click", function() {
     location.href = "https://immense-fjord-85744.herokuapp.com/client/itemListReporter.html";
 });
 document.getElementById("books-btn").addEventListener("click", function() {
-    location.href = "https://immense-fjord-85744.herokuapp.com/client/itemListReporter.html";
+    location.href = "http://localhost:3000/client/itemListReporter.html";//"https://immense-fjord-85744.herokuapp.com/client/itemListReporter.html";
+//"https://immense-fjord-85744.herokuapp.com/client/itemListReporter.html";
 });
 document.getElementById("clothing-btn").addEventListener("click", function() {
     location.href = "https://immense-fjord-85744.herokuapp.com/client/itemListReporter.html";

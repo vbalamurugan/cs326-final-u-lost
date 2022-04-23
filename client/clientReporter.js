@@ -32,21 +32,24 @@ document.getElementById("deleteButton").addEventListener("click", async (e) => {
 
 async function CreateTableFromJSON() {
     let myBooks = [];
-    const response = await fetch("./item.json")
-
+    //const response = await fetch("./item.json");
+    
+    const response = await fetch("/reporterFinder/read", {method: "GET"});
+    console.log(response)
     if (!response.ok) {
         console.log("Failed to load");
         return;
     }
+    
     let itemdata = await response.json();
-
+    console.log("itemdata", itemdata)
     for (let val of Object.keys(itemdata)) {
         myBooks.push(itemdata[val])
     }
 
-    var col = [];
-    for (var i = 0; i < myBooks.length; i++) {
-        for (var key in myBooks[i]) {
+    let col = [];
+    for (let i = 0; i < myBooks.length; i++) {
+        for (let key in myBooks[i]) {
             if (col.indexOf(key) === -1) {
                 col.push(key);
             }
