@@ -49,12 +49,15 @@ async function CreateTableFromJSON() {
             tabCell.setAttribute("data-bs-toggle", "modal");
             tabCell.setAttribute("data-bs-target", "#exampleModal");
             tabCell.innerHTML = myBooks[i][col[j]];
-            tabCell.addEventListener('click', () => {
+            tabCell.addEventListener('click', async() => {
                 document.getElementById('id2').value = myBooks[i]._id;
                 document.getElementById('category2').value = myBooks[i].category;
                 document.getElementById('location2').value = myBooks[i].location;
                 document.getElementById('time2').value = myBooks[i].time;
                 document.getElementById('contact2').value = myBooks[i].contact;
+                const response = await crud.readImage(myBooks[i].image);
+                document.getElementById('imageid').src = URL.createObjectURL(response)
+
             });
         }
     }
