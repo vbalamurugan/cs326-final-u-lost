@@ -300,13 +300,14 @@ class UlostServer {
         this.app.post('/login/create', async(req, res) => {
             try {
                 const { email, password } = req.query;
-                if (!this.emailExists(email)) {
+                if (!(await this.emailExists(email))) {
                     const person = await self.db.createLogin(email, password);
                     res.send(JSON.stringify(person));
                 } else {
                     res.status(500).send("Email Already in Use");
                 }
             } catch (err) {
+                console.log("BKENK")
                 res.status(500).send(err);
             }
         });
@@ -404,12 +405,17 @@ class UlostServer {
         });
     }
 
-    emailExists(email) {
-        const allEmails = this.db.readAllLogins();
-        allEmails.filter(x => x.email = email);
-        if (allEmails.length !== 0) {
+    async emailExists(emailthing) {
+        let allEmails = await this.db.readAllLogins();
+        // console.log("prev", allEmails);
+        let newallEmails = allEmails.filter(x => x.email === emailthing);
+        // console.log("after filter", newallEmails);
+        console.log(newallEmails.length)
+        if (newallEmails.length !== 0) {
+            console.log("truehere")
             return true;
         } else {
+            console.log("falsehere")
             return false;
         }
     }

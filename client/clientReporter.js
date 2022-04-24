@@ -7,8 +7,15 @@ document.getElementById("addItem").addEventListener("click", async(e) => {
     const contact = document.getElementById("contact").value;
     const image = document.getElementById("image");
     console.log("image");
+<<<<<<< HEAD
     let newImg = await crud.createImage(image);
     const newItem = await crud.createItem(category, location, contact, time, newImg);
+=======
+    const newImg = await crud.createImage(image);
+    console.log("HERE!!!");
+    console.log(image)
+    const newItem = await crud.createItem(category, location, contact, time, image);
+>>>>>>> ae496f86c759e9f864a7cb775e19d135da60a4db
     window.location.reload();
 
 });

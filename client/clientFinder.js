@@ -3,13 +3,13 @@ import * as crud from "./crud.js";
 async function CreateTableFromJSON() {
     let myBooks = [];
 
-    const response = await fetch("./item.json")
+    // const response = await fetch("./item.json")
 
-    if (!response.ok) {
-        console.log("Failed to load");
-        return;
-    }
-    let itemdata = await response.json();
+    // if (!response.ok) {
+    //     console.log("Failed to load");
+    //     return;
+    // }
+    let itemdata = await crud.readItem(localStorage.getItem('category'))
 
     for (let val of Object.keys(itemdata)) {
         myBooks.push(itemdata[val])
@@ -50,7 +50,7 @@ async function CreateTableFromJSON() {
             tabCell.setAttribute("data-bs-target", "#exampleModal");
             tabCell.innerHTML = myBooks[i][col[j]];
             tabCell.addEventListener('click', () => {
-                document.getElementById('id2').value = myBooks[i].id;
+                document.getElementById('id2').value = myBooks[i]._id;
                 document.getElementById('category2').value = myBooks[i].category;
                 document.getElementById('location2').value = myBooks[i].location;
                 document.getElementById('time2').value = myBooks[i].time;
