@@ -8,8 +8,8 @@ document.getElementById("addItem").addEventListener("click", async(e) => {
     const image = document.getElementById("image");
     console.log("image");
     const newImg = await crud.createImage(image);
-    console.log("HERE!!!");
-    const newItem = await crud.createItem(category, location, contact, time, image);
+    console.log("NewImg: ", newImg);
+    const newItem = await crud.createItem(category, location, contact, time, newImg);
     window.location.reload();
 
 });

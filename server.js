@@ -374,8 +374,8 @@ class UlostServer {
         // @TODO Add routes
         // Image Upload Routes
         this.app.post('/image', this.imageUpload.single('image'), (req, res) => {
-            console.log(req.body);
-            res.json('/image api');
+            console.log(req.file);
+            res.json(req.file.filename);
         });
         // Image Get Routes
         this.app.get('/image/:filename', (req, res) => {
