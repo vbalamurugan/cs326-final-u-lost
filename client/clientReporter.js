@@ -7,8 +7,7 @@ document.getElementById("addItem").addEventListener("click", async(e) => {
     const contact = document.getElementById("contact").value;
     const image = document.getElementById("image");
     console.log("image");
-    const newImg = await crud.createImage(image);
-    console.log("NewImg: ", newImg);
+    let newImg = await crud.createImage(image);
     const newItem = await crud.createItem(category, location, contact, time, newImg);
     window.location.reload();
 
@@ -22,9 +21,10 @@ document.getElementById("updateButton").addEventListener("click", async(e) => {
     const time = document.getElementById("time2").value;
     const location = document.getElementById("location2").value;
     const contact = document.getElementById("contact2").value;
-    const image = document.getElementById("image2").value;
+    const image = document.getElementById("image2");
     const id = document.getElementById("id2").value;
-    const newItem = await crud.updateItem(location, contact, time, image, id);
+    let newImg = await crud.createImage(image);
+    const newItem = await crud.updateItem(location, contact, time, newImg, id);
     window.location.reload();
 });
 
@@ -89,12 +89,21 @@ async function CreateTableFromJSON() {
             tabCell.setAttribute("data-bs-toggle", "modal");
             tabCell.setAttribute("data-bs-target", "#exampleModal");
             tabCell.innerHTML = myBooks[i][col[j]];
-            tabCell.addEventListener('click', () => {
+            tabCell.addEventListener('click', async () => {
                 document.getElementById('id2').value = myBooks[i]._id;
                 document.getElementById('category2').value = myBooks[i].category;
                 document.getElementById('location2').value = myBooks[i].location;
                 document.getElementById('time2').value = myBooks[i].time;
                 document.getElementById('contact2').value = myBooks[i].contact;
+                // console.log("HERE", myBooks[i].image)
+                // console.log("HERE2", await crud.readImage(myBooks[i].image))
+                // console.log("ourimage   ", "data:@file/jpeg;base64,"+ window.Base64.encode(await crud.readImage(myBooks[i].image)))
+                // document.getElementById('dis_image').src = "data:@file/jpeg;base64,"+window.Base64.encode(await crud.readImage(myBooks[i].image));
+                console.log("HERE", myBooks[i].image)
+                const response = await crud.readImage(myBooks[i].image);
+                document.getElementById('dis_image').src = URL.createObjectURL(response)
+
+                console.log("HERE3", document.getElementById('dis_image').src)
             });
         }
     }

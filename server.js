@@ -265,6 +265,7 @@ import express from 'express';
 import logger from 'morgan';
 import multer from 'multer';
 import { UlostDatabase } from './ulost-db.js';
+import path from 'path';
 
 class UlostServer {
     constructor(dburl) {
@@ -380,7 +381,9 @@ class UlostServer {
         // Image Get Routes
         this.app.get('/image/:filename', (req, res) => {
             const { filename } = req.params;
+            console.log("FILENAME", filename)
             const dirname = path.resolve();
+            console.log("DIRNAME", dirname)
             const fullfilepath = path.join(dirname, 'images/' + filename);
             return res.sendFile(fullfilepath);
         });

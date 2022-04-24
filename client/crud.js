@@ -56,7 +56,7 @@ export async function readItemsFinder(category) {
 }
 
 export async function createItem(category, location, contact, time, image) {
-    const response = await fetch(`/reporter/create?category=${category}&location=${location}&contact=${contact}&time=${time}&image=${image}}`, {
+    const response = await fetch(`/reporter/create?category=${category}&location=${location}&contact=${contact}&time=${time}&image=${image}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -110,4 +110,19 @@ export async function createImage(image) {
         .then(response => response.json());
 
     return response;
+}
+
+export async function readImage(image) {
+    try {
+        const response = await fetch(`/image/`+image, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+        console.log(response);
+        return response.blob();
+    } catch (err) {
+        console.log(err);
+    }
 }
