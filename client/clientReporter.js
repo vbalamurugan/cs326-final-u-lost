@@ -1,7 +1,7 @@
 import * as crud from "./crud.js";
 
 document.getElementById("addItem").addEventListener("click", async (e) => {
-    const category = document.getElementById("category").value;
+    const id = document.getElementById("id_2").value;
     const time = document.getElementById("time").value;
     const location = document.getElementById("location").value;
     const contact = document.getElementById("contact").value;
@@ -9,7 +9,7 @@ document.getElementById("addItem").addEventListener("click", async (e) => {
     console.log("image");
     const newImg = await crud.createImage(image);
     console.log("HERE!!!");
-    const newItem = await crud.createItem(category, location, contact, time, image);
+    const newItem = await crud.createItem(location, contact, time, image, id);
     window.location.reload();
 });
 
