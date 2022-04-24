@@ -7,15 +7,8 @@ document.getElementById("addItem").addEventListener("click", async(e) => {
     const contact = document.getElementById("contact").value;
     const image = document.getElementById("image");
     console.log("image");
-<<<<<<< HEAD
     let newImg = await crud.createImage(image);
     const newItem = await crud.createItem(category, location, contact, time, newImg);
-=======
-    const newImg = await crud.createImage(image);
-    console.log("HERE!!!");
-    console.log(image)
-    const newItem = await crud.createItem(category, location, contact, time, image);
->>>>>>> ae496f86c759e9f864a7cb775e19d135da60a4db
     window.location.reload();
 
 });
@@ -96,7 +89,7 @@ async function CreateTableFromJSON() {
             tabCell.setAttribute("data-bs-toggle", "modal");
             tabCell.setAttribute("data-bs-target", "#exampleModal");
             tabCell.innerHTML = myBooks[i][col[j]];
-            tabCell.addEventListener('click', async () => {
+            tabCell.addEventListener('click', async() => {
                 document.getElementById('id2').value = myBooks[i]._id;
                 document.getElementById('category2').value = myBooks[i].category;
                 document.getElementById('location2').value = myBooks[i].location;
