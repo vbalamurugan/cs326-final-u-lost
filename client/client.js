@@ -31,7 +31,7 @@ document.getElementById("submit").addEventListener("click", async(e) => {
             console.log("error");
         } else {
             console.log("no error");
-            location.href = "https://immense-fjord-85744.herokuapp.com/client/reporterFinder.html"
+            location.href = "http://localhost:3000/client/reporterFinder.html";
         }
     }
 

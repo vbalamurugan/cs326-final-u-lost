@@ -86,7 +86,8 @@ export class UlostDatabase {
     }
 
     async readAllLogins() {
-        const res = await this.collection.find();
+        const res = await this.collection.find().toArray();
+        // console.log("res", res)
         return res;
     }
 

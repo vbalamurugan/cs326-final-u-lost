@@ -9,6 +9,7 @@ document.getElementById("addItem").addEventListener("click", async(e) => {
     console.log("image");
     const newImg = await crud.createImage(image);
     console.log("HERE!!!");
+    console.log(image)
     const newItem = await crud.createItem(category, location, contact, time, image);
     window.location.reload();
 
