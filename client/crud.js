@@ -110,10 +110,4 @@ export async function createImage(image) {
         .then(response => response.json());
 
     return response;
-    // console.log(response)
-    // console.log("here2")
-    // const data = await response.blob();
-    // console.log("here2")
-    // console.log(data)
-    // return data;
 }

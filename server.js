@@ -370,6 +370,20 @@ class UlostServer {
                 res.status(500).send(err);
             }
         });
+
+        // @TODO Add routes
+        // Image Upload Routes
+        this.app.post('/image', this.imageUpload.single('image'), (req, res) => {
+            console.log(req.body);
+            res.json('/image api');
+        });
+        // Image Get Routes
+        this.app.get('/image/:filename', (req, res) => {
+            const { filename } = req.params;
+            const dirname = path.resolve();
+            const fullfilepath = path.join(dirname, 'images/' + filename);
+            return res.sendFile(fullfilepath);
+        });
     }
 
     async initDb() {
