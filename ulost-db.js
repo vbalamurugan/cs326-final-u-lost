@@ -32,8 +32,8 @@ export class UlostDatabase {
     }
 
     // CREATE a user in the database.
-    async createItem(category, location, contact, time, image, id) {
-        const res = await this.collectionitems.insertOne({ category: category, location: location, contact: contact, time: time, image: image, _id: id });
+    async createItem(category, location, contact, time, image, id, email) {
+        const res = await this.collectionitems.insertOne({ category: category, location: location, contact: contact, time: time, image: image, _id: id, email: email });
         // Note: the result received back from MongoDB does not contain the
         // entire document that was inserted into the database. Instead, it
         // only contains the _id of the document (and an acknowledged field).
@@ -41,7 +41,7 @@ export class UlostDatabase {
     }
 
     async createLogin(email, password) {
-        const res = await this.collection.insertOne({ email: email, password: password });
+        const res = await this.collection.insertOne({ email: email, password: password, honesty: 0});
         // Note: the result received back from MongoDB does not contain the
         // entire document that was inserted into the database. Instead, it
         // only contains the _id of the document (and an acknowledged field).
@@ -66,7 +66,6 @@ export class UlostDatabase {
 
     // READ an item from the database.
     async readItem(category) {
-        let resObj = {};
         //returns cursor (collection) of all items with this specific category
         const res = await this.collectionitems.find({ category: category });
         //convert the cursor to an array and return it
@@ -82,6 +81,15 @@ export class UlostDatabase {
         id = parseInt(id);
         const res = await this.collectionitems.updateOne({ _id: id }, { $set: { location: location, contact: contact, time: time, image: image } }, );
         console.log(res)
+        return res;
+    }
+
+    //update honesty score of user (reporter) using email
+    async updateLogin(email) {
+        const bingo = await this.collection.findOne({ email: email });
+        let num = bingo.honesty;
+        ++num;
+        const res = await this.collection.updateOne({email: email}, {$set: {honesty: num}});
         return res;
     }
 

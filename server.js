@@ -314,9 +314,9 @@ class UlostServer {
 
         this.app.post('/reporter/create', async(req, res) => {
             try {
-                const { category, location, contact, time, image } = req.query;
+                const { category, location, contact, time, image, email } = req.query;
                 const id = Date.now();
-                const item = await self.db.createItem(category, location, contact, time, image, id);
+                const item = await self.db.createItem(category, location, contact, time, image, id, email);
                 res.send(JSON.stringify(item));
             } catch (err) {
                 res.status(500).send(err);
@@ -327,6 +327,17 @@ class UlostServer {
             try {
                 const { location, contact, time, image, id } = req.query;
                 const item = await self.db.updateItem(location, contact, time, image, id);
+                res.send(JSON.stringify(item));
+            } catch (err) {
+                res.status(500).send(err);
+            }
+        });
+
+        this.app.put('/login/update', async(req, res) => {
+            try {
+                const { email } = req.query;
+                const item = await self.db.updateLogin(email);
+                console.log(item);
                 res.send(JSON.stringify(item));
             } catch (err) {
                 res.status(500).send(err);
@@ -366,7 +377,7 @@ class UlostServer {
                 for (let i = 0; i < resArray.length; ++i) {
                     resObj[resArray[i]._id] = resArray[i];
                 }
-                console.log(resObj);
+                //console.log(resObj);
                 res.send(JSON.stringify(resObj));
             } catch (err) {
                 res.status(500).send(err);

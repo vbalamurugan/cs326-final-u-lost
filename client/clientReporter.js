@@ -1,6 +1,7 @@
 import * as crud from "./crud.js";
 
 document.getElementById("addItem").addEventListener("click", async(e) => {
+    const email = localStorage.getItem("storeEmail");
     const category = document.getElementById("category").value;
     const time = document.getElementById("time").value;
     const location = document.getElementById("location").value;
@@ -8,7 +9,7 @@ document.getElementById("addItem").addEventListener("click", async(e) => {
     const image = document.getElementById("image");
     console.log("image");
     let newImg = await crud.createImage(image);
-    const newItem = await crud.createItem(category, location, contact, time, newImg);
+    const newItem = await crud.createItem(category, location, contact, time, newImg, email);
     window.location.reload();
 
 });
@@ -47,9 +48,9 @@ async function CreateTableFromJSON() {
     // }
 
     // let itemdata = await response.json();
-    let itemdata = await crud.readItem(localStorage.getItem('category'))
-
-    console.log("itemdata", itemdata)
+    let itemdata = await crud.readItem(localStorage.getItem('category'));
+    document.getElementById("hScore").innerHTML = "Honesty Score: " + localStorage.getItem('honestyScore').toString();
+    console.log("itemdata", itemdata);
     for (let val of Object.keys(itemdata)) {
         myBooks.push(itemdata[val])
     }
@@ -73,7 +74,7 @@ async function CreateTableFromJSON() {
 
     let tr = table.insertRow(-1); // TABLE ROW.
     tr.classList.add('cell');
-    for (let i = 0; i < col.length; i++) {
+    for (let i = 0; i < col.length-1; i++) {
         let th = document.createElement("th"); // TABLE HEADER.
         th.innerHTML = col[i].toUpperCase();
         tr.appendChild(th);
@@ -84,7 +85,7 @@ async function CreateTableFromJSON() {
 
         tr = table.insertRow(-1);
 
-        for (let j = 0; j < col.length; j++) {
+        for (let j = 0; j < col.length-1; j++) {
             let tabCell = tr.insertCell(-1);
             tabCell.setAttribute("data-bs-toggle", "modal");
             tabCell.setAttribute("data-bs-target", "#exampleModal");

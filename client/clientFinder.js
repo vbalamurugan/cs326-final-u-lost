@@ -1,5 +1,11 @@
 import * as crud from "./crud.js";
 
+document.getElementById("mine").addEventListener("click", async(e) => {
+    const len = document.getElementById('email2').value.length;
+    const em = document.getElementById('email2').value.substring(1, len-1);
+    const user = await crud.updateLogin(em);
+});
+
 async function CreateTableFromJSON() {
     let myBooks = [];
 
@@ -33,7 +39,7 @@ async function CreateTableFromJSON() {
 
     let tr = table.insertRow(-1); // TABLE ROW.
     tr.classList.add('cell');
-    for (let i = 0; i < col.length; i++) {
+    for (let i = 0; i < col.length-1; i++) {
         let th = document.createElement("th"); // TABLE HEADER.
         th.innerHTML = col[i].toUpperCase();
         tr.appendChild(th);
@@ -44,7 +50,7 @@ async function CreateTableFromJSON() {
 
         tr = table.insertRow(-1);
 
-        for (let j = 0; j < col.length; j++) {
+        for (let j = 0; j < col.length-1; j++) {
             let tabCell = tr.insertCell(-1);
             tabCell.setAttribute("data-bs-toggle", "modal");
             tabCell.setAttribute("data-bs-target", "#exampleModal");
@@ -57,7 +63,8 @@ async function CreateTableFromJSON() {
                 document.getElementById('contact2').value = myBooks[i].contact;
                 const response = await crud.readImage(myBooks[i].image);
                 document.getElementById('imageid').src = URL.createObjectURL(response)
-
+                document.getElementById('email2').value = myBooks[i].email;
+                document.getElementById('email2').style.display = "none";
             });
         }
     }
