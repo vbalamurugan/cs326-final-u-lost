@@ -16,9 +16,11 @@
 # Team Members
 
 * Sahil Joshi (sahiljoshi515)
-* Sidharth Saluja 
-* Vikas Balamurgan
-* Nishant Jain
+* Sidharth Saluja (SidharthSaluja)
+* Vikas Balamurugan (vbalamurugan)
+* Nishant Jain (nishant1549)
+
+# User Interface
 
 
 # Team Work for Milestone 2
