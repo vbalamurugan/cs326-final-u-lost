@@ -12,7 +12,8 @@
 * Sahil worked on connecting the login/create, login/read to the backend.
 * Vikas worked on connecting the reporter/update to the backend.
 * Sidharth was responsible to display the data fetched from the backend to the frontend. He also connected the reporter/delete to the backend.
-* Nishant was reponsible for connecting the reporter/create route to backend.
+* Nishant was reponsible for connecting the reporter/create route to backend and updating the "Honesty Score" for the reporter when the Finder clicks
+  on the "It is Mine!" button.
 
 # Database Information (MongoDB)
 
