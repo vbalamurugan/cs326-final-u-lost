@@ -12,6 +12,7 @@
 * Sidharth was responsible for the '__POST__ __/login/create__' and '__GET__ __/login/read__ api' and the Heroku deployemnt. 
 * Vikas was responsible for the '__GET__ __/finder/read__' api, page/button routing and writing the milestone 2 and setup documents.
 * Nishant was responsible for '__GET__ __/reporter/read__' and '__DELETE__ __/reporter/delete__' and cleaning up front end changes. 
+
 # API Documentation
 
 ## Introduction
