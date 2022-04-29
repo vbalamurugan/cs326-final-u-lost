@@ -6,6 +6,7 @@ document.getElementById("mine").addEventListener("click", async() => {
     const updateLogin = await crud.updateLogin(email);
     const id = document.getElementById("id2").value;
     const deleteItem = await crud.deleteItem(id);
+    window.location.reload();
 });
 
 async function CreateTableFromJSON() {
