@@ -34,7 +34,7 @@ document.getElementById("submit").addEventListener("click", async(e) => {
             localStorage.setItem('storePassword', JSON.stringify(passcode));
             localStorage.setItem('honestyScore', loginthing.honesty);
             console.log("no error");
-            location.href = "http://localhost:3000/client/reporterFinder.html";
+            location.href = "https://glacial-scrubland-79174.herokuapp.com/client/reporterFinder.html";
         }
     }
 

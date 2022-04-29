@@ -34,25 +34,16 @@ export class UlostDatabase {
     // CREATE a user in the database.
     async createItem(category, location, contact, time, image, id, email) {
         const res = await this.collectionitems.insertOne({ category: category, location: location, contact: contact, time: time, image: image, _id: id, email: email });
-        // Note: the result received back from MongoDB does not contain the
-        // entire document that was inserted into the database. Instead, it
-        // only contains the _id of the document (and an acknowledged field).
         return res;
     }
 
     async createLogin(email, password) {
         const res = await this.collection.insertOne({ email: email, password: password, honesty: 0});
-        // Note: the result received back from MongoDB does not contain the
-        // entire document that was inserted into the database. Instead, it
-        // only contains the _id of the document (and an acknowledged field).
         return res;
     }
 
     // DELETE a user from the database.
     async deleteItem(id) {
-        // Note: the result received back from MongoDB does not contain the
-        // entire document that was deleted from the database. Instead, it
-        // only contains the 'deletedCount' (and an acknowledged field).
         id = parseInt(id);
         const res = await this.collectionitems.deleteOne({ _id: id });
         return res;
@@ -75,9 +66,6 @@ export class UlostDatabase {
 
     // UPDATE a user in the database.
     async updateItem(location, contact, time, image, id) {
-        // Note: the result received back from MongoDB does not contain the
-        // entire document that was inserted into the database. Instead, it
-        // only contains the _id of the document (and an acknowledged field).
         id = parseInt(id);
         const res = await this.collectionitems.updateOne({ _id: id }, { $set: { location: location, contact: contact, time: time, image: image } }, );
         console.log(res)

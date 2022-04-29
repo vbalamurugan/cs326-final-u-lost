@@ -1,9 +1,11 @@
 import * as crud from "./crud.js";
 
-document.getElementById("mine").addEventListener("click", async(e) => {
+document.getElementById("mine").addEventListener("click", async() => {
     const len = document.getElementById('email2').value.length;
-    const em = document.getElementById('email2').value.substring(1, len-1);
-    const user = await crud.updateLogin(em);
+    const email = document.getElementById('email2').value.substring(1, len-1);
+    const updateLogin = await crud.updateLogin(email);
+    const id = document.getElementById("id2").value;
+    const deleteItem = await crud.deleteItem(id);
 });
 
 async function CreateTableFromJSON() {
@@ -21,9 +23,9 @@ async function CreateTableFromJSON() {
         myBooks.push(itemdata[val])
     }
 
-    var col = [];
-    for (var i = 0; i < myBooks.length; i++) {
-        for (var key in myBooks[i]) {
+    let col = [];
+    for (let i = 0; i < myBooks.length; i++) {
+        for (let key in myBooks[i]) {
             if (col.indexOf(key) === -1) {
                 col.push(key);
             }
