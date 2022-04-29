@@ -324,6 +324,7 @@ class UlostServer {
         });
 
         this.app.put('/reporter/update', async(req, res) => {
+            console.log(res.query)
             try {
                 const { location, contact, time, image, id } = req.query;
                 const item = await self.db.updateItem(location, contact, time, image, id);
@@ -358,7 +359,7 @@ class UlostServer {
             try {
                 const { email, password } = req.query;
                 const login = await self.db.readLogin(email);
-                if (this.checkPassword(login, password)) {
+                if (!(await this.emailExists(email) && this.checkPassword(login, password))) {
                     res.send(JSON.stringify(login));
                 } else {
                     res.status(500).send("Wrong password");
@@ -372,12 +373,10 @@ class UlostServer {
             try {
                 const { category } = req.query;
                 const resArray = await self.db.readItem(category);
-                //console.log(resArray);
                 let resObj = {};
                 for (let i = 0; i < resArray.length; ++i) {
                     resObj[resArray[i]._id] = resArray[i];
                 }
-                //console.log(resObj);
                 res.send(JSON.stringify(resObj));
             } catch (err) {
                 res.status(500).send(err);
