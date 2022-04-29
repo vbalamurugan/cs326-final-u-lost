@@ -260,6 +260,13 @@ Example Output :<img width="660" alt="Screen Shot 2022-04-09 at 4 38 22 PM" src=
 
 # Division of Labor
 
+* Sahil was responsible for building the pages which Reporter and Finder will see individually.
+* Sidharth was responsible for building the Sign-in and Sign-up pages.
+* Vikas was responsible for building the "Categories" page.
+* Nishant was responsible for building the "Common" page which the Reporter and Finder will see.
+* Everyone contributed in creating the wireframes.
+
+
 
 # Conclusion 
 
