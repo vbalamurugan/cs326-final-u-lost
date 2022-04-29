@@ -282,13 +282,3 @@ Example Output :<img width="660" alt="Screen Shot 2022-04-09 at 4 38 22 PM" src=
 # Conclusion 
 
 * Our team enjoyed working on this project throughout this semester. We learned how to store images on the server while linking them with some tag in the database and also learned proper design of code. We enjoyed learning Node.js and MongoDB as it was pretty intuitive and hope that it helps us while interning at different companies. One thing that might have helped us before we started the project was knowing how to do proper authentication. Since the instructor posted this resource pretty late, we decided to omit it. Some hurdles that we faced while building this project were spotting bugs (Why the code doesn't work as intended?), having trouble to push the project to heroku, and determining a way to store images on the server. We solved all these issues together by using stackoverflow and debugging. At the end, we are very proud of the application we have built, since each of us has taken equal effort to build this application.
-
-
-# Team Work for Milestone 2
-
-* Sahil and Vikas were responsible to store and display the images of the items on the user interface.
-* Sahil worked on connecting the login/create, login/read to the backend.
-* Vikas worked on connecting the reporter/update to the backend.
-* Sidharth was responsible to display the data fetched from the backend to the frontend. He also connected the reporter/delete to the backend.
-* Nishant was reponsible for connecting the reporter/create route to backend.
-
