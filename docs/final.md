@@ -271,6 +271,13 @@ Example Output :<img width="660" alt="Screen Shot 2022-04-09 at 4 38 22 PM" src=
 * Vikas was responsible for the '__GET__ __/finder/read__' api, page/button routing and writing the milestone 2 and setup documents.
 * Nishant was responsible for '__GET__ __/reporter/read__' and '__DELETE__ __/reporter/delete__' and cleaning up front end changes. 
 
+* Sahil and Vikas were responsible to store and display the images of the items on the user interface.
+* Sahil worked on connecting the login/create, login/read to the backend and was also responsible for writing the milestone3.md and final.md.
+* Vikas worked on connecting the reporter/update to the backend.
+* Sidharth was responsible to display the data fetched from the backend to the frontend. He also connected the reporter/delete to the backend.
+* Nishant was reponsible for connecting the reporter/create route to backend and updating the "Honesty Score" for the reporter when the Finder clicks
+  on the "It is Mine!" button.
+* Sidharth and Vikas helped Nishant in debugging as well.
 
 # Conclusion 
 
