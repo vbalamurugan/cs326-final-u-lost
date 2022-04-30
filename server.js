@@ -44,7 +44,6 @@ class UlostServer {
                     res.status(500).send("Email Already in Use");
                 }
             } catch (err) {
-                console.log("BKENK")
                 res.status(500).send(err);
             }
         });
@@ -75,7 +74,6 @@ class UlostServer {
             try {
                 const { email } = req.query;
                 const item = await self.db.updateLogin(email);
-                console.log(item);
                 res.send(JSON.stringify(item));
             } catch (err) {
                 res.status(500).send(err);
@@ -93,13 +91,10 @@ class UlostServer {
         });
 
         this.app.get('/login/read', async(req, res) => {
-            console.log("HERE", req);
             try {
                 const { email, password } = req.query;
                 const login = await self.db.readLogin(email);
-                console.log("BEFORE IF", login);
                 if (await this.emailExists(email) && this.checkPassword(login, password)) {
-                    console.log("CORRECT", login);
                     res.send(JSON.stringify(login));
                 } else {
                     res.status(500).send("Wrong password");
@@ -123,18 +118,14 @@ class UlostServer {
             }
         });
 
-        // @TODO Add routes
         // Image Upload Routes
         this.app.post('/image', this.imageUpload.single('image'), (req, res) => {
-            console.log(req.file);
             res.json(req.file.filename);
         });
         // Image Get Routes
         this.app.get('/image/:filename', (req, res) => {
             const { filename } = req.params;
-            console.log("FILENAME", filename)
             const dirname = path.resolve();
-            console.log("DIRNAME", dirname)
             const fullfilepath = path.join(dirname, 'images/' + filename);
             return res.sendFile(fullfilepath);
         });
@@ -157,15 +148,10 @@ class UlostServer {
 
     async emailExists(emailthing) {
         let allEmails = await this.db.readAllLogins();
-        // console.log("prev", allEmails);
         let newallEmails = allEmails.filter(x => x.email === emailthing);
-        // console.log("after filter", newallEmails);
-        console.log(newallEmails.length)
         if (newallEmails.length !== 0) {
-            console.log("truehere")
             return true;
         } else {
-            console.log("falsehere")
             return false;
         }
     }

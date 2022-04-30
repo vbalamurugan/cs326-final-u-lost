@@ -26,14 +26,12 @@ document.getElementById("submit").addEventListener("click", async(e) => {
     } else {
         const passcode = document.getElementById("passcode").value;
         const loginthing = await crud.readLogin(email, passcode);
-        console.log(loginthing);
         if (loginthing.error) {
-            console.log("error");
+            alert("Error: ", loginthing.error);
         } else {
             localStorage.setItem('storeEmail', JSON.stringify(email));
             localStorage.setItem('storePassword', JSON.stringify(passcode));
             localStorage.setItem('honestyScore', loginthing.honesty);
-            console.log("no error");
             location.href = "https://glacial-scrubland-79174.herokuapp.com/client/reporterFinder.html";
         }
     }

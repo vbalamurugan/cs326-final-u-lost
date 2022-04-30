@@ -12,8 +12,7 @@ document.getElementById("keys-btn").addEventListener("click", function() {
 });
 document.getElementById("books-btn").addEventListener("click", function() {
     localStorage.setItem("category", "Books")
-    location.href = "https://glacial-scrubland-79174.herokuapp.com/client/itemListFinder.html"; //"https://immense-fjord-85744.herokuapp.com/client/itemListFinder.html";
-
+    location.href = "https://glacial-scrubland-79174.herokuapp.com/client/itemListFinder.html";
 });
 document.getElementById("clothing-btn").addEventListener("click", function() {
     localStorage.setItem("category", "Clothing")

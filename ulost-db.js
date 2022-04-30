@@ -31,12 +31,13 @@ export class UlostDatabase {
         this.client.close();
     }
 
-    // CREATE a user in the database.
+    // CREATE a item in the database.
     async createItem(category, location, contact, time, image, id, email) {
         const res = await this.collectionitems.insertOne({ category: category, location: location, contact: contact, time: time, image: image, _id: id, email: email });
         return res;
     }
 
+    //create login
     async createLogin(email, password) {
         const res = await this.collection.insertOne({ email: email, password: password, honesty: 0});
         return res;
@@ -68,7 +69,6 @@ export class UlostDatabase {
     async updateItem(location, contact, time, image, id) {
         id = parseInt(id);
         const res = await this.collectionitems.updateOne({ _id: id }, { $set: { location: location, contact: contact, time: time, image: image } }, );
-        console.log(res)
         return res;
     }
 
@@ -81,9 +81,9 @@ export class UlostDatabase {
         return res;
     }
 
+    //Read all logins
     async readAllLogins() {
         const res = await this.collection.find().toArray();
-        // console.log("res", res)
         return res;
     }
 

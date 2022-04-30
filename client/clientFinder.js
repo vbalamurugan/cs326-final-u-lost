@@ -11,13 +11,6 @@ document.getElementById("mine").addEventListener("click", async() => {
 
 async function CreateTableFromJSON() {
     let myBooks = [];
-
-    // const response = await fetch("./item.json")
-
-    // if (!response.ok) {
-    //     console.log("Failed to load");
-    //     return;
-    // }
     let itemdata = await crud.readItem(localStorage.getItem('category'))
 
     for (let val of Object.keys(itemdata)) {
@@ -34,12 +27,11 @@ async function CreateTableFromJSON() {
     }
 
     // CREATE DYNAMIC TABLE.
-    // var table = document.createElement("table");
     let table = document.getElementById("tabledata")
     table.classList.add('table');
     table.classList.add('table-hover');
+    
     // CREATE HTML TABLE HEADER ROW USING THE EXTRACTED HEADERS ABOVE.
-
     let tr = table.insertRow(-1); // TABLE ROW.
     tr.classList.add('cell');
     for (let i = 0; i < col.length-1; i++) {

@@ -9,20 +9,16 @@ document.getElementById("idcards-btn").addEventListener("click", function() {
 document.getElementById("keys-btn").addEventListener("click", function() {
     localStorage.setItem("category", "Keys")
     location.href = "https://glacial-scrubland-79174.herokuapp.com/client/itemListReporter.html";
-    //"https://immense-fjord-85744.herokuapp.com/client/itemListReporter.html";
 });
 document.getElementById("books-btn").addEventListener("click", function() {
     localStorage.setItem("category", "Books")
-    location.href = "https://glacial-scrubland-79174.herokuapp.com/client/itemListReporter.html"; //"https://immense-fjord-85744.herokuapp.com/client/itemListReporter.html";
-    //"https://immense-fjord-85744.herokuapp.com/client/itemListReporter.html";
+    location.href = "https://glacial-scrubland-79174.herokuapp.com/client/itemListReporter.html";
 });
 document.getElementById("clothing-btn").addEventListener("click", function() {
     localStorage.setItem("category", "Clothing")
     location.href = "https://glacial-scrubland-79174.herokuapp.com/client/itemListReporter.html";
-    //"https://immense-fjord-85744.herokuapp.com/client/itemListReporter.html";
 });
 document.getElementById("other-btn").addEventListener("click", function() {
     localStorage.setItem("category", "Other")
     location.href = "https://glacial-scrubland-79174.herokuapp.com/client/itemListReporter.html";
-    //"https://immense-fjord-85744.herokuapp.com/client/itemListReporter.html";
 });

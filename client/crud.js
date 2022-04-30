@@ -1,5 +1,4 @@
 export async function updateLogin(email) {
-    console.log(email);
     try {
         const response = await fetch(`/login/update?email=${email}`, {
             method: 'PUT',
@@ -36,7 +35,6 @@ export async function readLogin(email, password) {
             }
         });
         const data = await response.json();
-        console.log("HERE", data);
         return data;
     } catch (err) {
         console.log(err);
@@ -82,7 +80,6 @@ export async function createItem(category, location, contact, time, image, email
         body: JSON.stringify({ category: category, location: location, contact: contact, time: time, image: image, email: email }),
     });
     const data = await response.json();
-    console.log(data);
     return data;
 }
 
@@ -121,7 +118,6 @@ export async function deleteItem(id) {
 export async function createImage(image) {
     const formData = new FormData();
     formData.append("image", image.files[0]);
-    console.log(image);
     const response = await fetch(`/image`, {
             method: 'POST',
             body: formData,
@@ -139,7 +135,6 @@ export async function readImage(image) {
                 'Content-Type': 'application/json',
             },
         });
-        //console.log(response);
         return response.blob();
     } catch (err) {
         console.log(err);
