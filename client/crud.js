@@ -36,6 +36,7 @@ export async function readLogin(email, password) {
             }
         });
         const data = await response.json();
+        console.log("HERE", data);
         return data;
     } catch (err) {
         console.log(err);

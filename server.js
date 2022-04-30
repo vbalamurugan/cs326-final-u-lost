@@ -93,10 +93,13 @@ class UlostServer {
         });
 
         this.app.get('/login/read', async(req, res) => {
+            console.log("HERE", req);
             try {
                 const { email, password } = req.query;
                 const login = await self.db.readLogin(email);
-                if (!(await this.emailExists(email) && this.checkPassword(login, password))) {
+                console.log("BEFORE IF", login);
+                if (await this.emailExists(email) && this.checkPassword(login, password)) {
+                    console.log("CORRECT", login);
                     res.send(JSON.stringify(login));
                 } else {
                     res.status(500).send("Wrong password");
