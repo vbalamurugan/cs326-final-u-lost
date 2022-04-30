@@ -1,264 +1,166 @@
-// https://expressjs.com
-// https://expressjs.com/en/resources/middleware/morgan.html
 import express from 'express';
 import logger from 'morgan';
 import multer from 'multer';
-import { readFile, writeFile } from 'fs/promises';
+import { UlostDatabase } from './ulost-db.js';
+import path from 'path';
 
-const JSONItemfile = './client/item.json';
-const JSONLoginfile = './client/login.json';
-
-let items = {};
-let logins = {};
-
-async function reloadItems(filename) {
-    try {
-        const data = await readFile(filename, { encoding: 'utf8' });
-        items = JSON.parse(data);
-    } catch (err) {
-        items = {};
+class UlostServer {
+    constructor(dburl) {
+        this.dburl = dburl;
+        this.app = express();
+        this.app.use(logger('dev'));
+        this.app.use(express.json());
+        this.app.use('/client', express.static('client'));
+        this.app.use(express.json());
+        // AFTER : Create multer object
+        this.imageUpload = multer({
+            storage: multer.diskStorage({
+                destination: function(req, file, cb) {
+                    cb(null, 'images/');
+                },
+                filename: function(req, file, cb) {
+                    cb(
+                        null,
+                        new Date().valueOf() +
+                        '_' +
+                        file.originalname
+                    );
+                }
+            }),
+        });
     }
-}
 
-async function saveItems() {
-    try {
-        const data = JSON.stringify(items);
-        await writeFile(JSONItemfile, data, { encoding: 'utf8' });
-    } catch (err) {
-        console.log(err);
-    }
-}
+    async initRoutes() {
+        // Note: when using arrow functions, the "this" binding is lost.
+        const self = this;
 
-async function reloadLogins(filename) {
-    try {
-        const data = await readFile(filename, { encoding: 'utf8' });
-        logins = JSON.parse(data);
-    } catch (err) {
-        logins = {};
-    }
-}
-
-async function saveLogins() {
-    try {
-        const data = JSON.stringify(logins);
-        await writeFile(JSONLoginfile, data, { encoding: 'utf8' });
-    } catch (err) {
-        console.log(err);
-    }
-}
-
-function idExists(id) {
-    return id in items;
-}
-
-function emailExists(email) {
-    return email in logins;
-}
-
-
-async function createLogin(response, email, password) {
-    console.log(email);
-    if (email === undefined) {
-        // 400 - Bad Request
-        response.status(400).json({ error: 'Email is required' });
-    } else {
-        await reloadLogins(JSONLoginfile);
-        if (!emailExists(email)) {
-            logins[email] = { email: email, password: password };
-            await saveLogins();
-            response.status(200).json({ email: email, password: password });
-        } else {
-            response.status(403).json({ error: 'Email already in use' });
-        }
-        console.log(logins)
-    }
-}
-
-function checkPassword(email, password) {
-    return logins[email]["password"] === password;
-}
-
-async function readLogin(response, email, password) {
-    await reloadLogins(JSONLoginfile);
-    if (emailExists(email)) {
-        console.log(password);
-        if (checkPassword(email, password)) {
-            response.status(200).json({ email: email, password: password });
-        } else {
-            response.status(403).json({ error: `Incorrect Password` });
-        }
-        // response.status(200).json({ email: email, password: password });
-    } else {
-        response.status(404).json({ error: `Item '${email}' Not Found` });
-    }
-}
-
-async function readItem(response, category) {
-    await reloadItems(JSONItemfile);
-    const itemsInCategory = checkObjCategory(category)
-    if (itemsInCategory.length > 0) {
-        response.status(200).write(JSON.stringify(itemsInCategory));
-        response.end();
-    } else {
-        // 404 - Not Found
-        response.status(404).json({ error: `No Items in this category` });
-    }
-}
-
-async function createItem(response, category, location, contact, time, image, id) {
-    console.log(id);
-    if (id === undefined) {
-        // 400 - Bad Request
-        response.status(400).json({ error: 'ID is required' });
-    } else {
-        await reloadItems(JSONItemfile);
-        items[id] = { category: category, location: location, contact: contact, time: time, image: image, id: id };
-        await saveItems();
-        response.status(200).json({ category: category, location: location, contact: contact, time: time, image: image, id: id });
-    }
-}
-
-async function updateItem(response, category, location, contact, time, image, id) {
-    await reloadItems(JSONItemfile);
-    if (idExists(id)) {
-        items[id] = { category: category, location: location, contact: contact, time: time, image: image, id: id };
-        await saveItems();
-        response.json({ category: category, location: location, contact: contact, time: time, image: image, id: id });
-    } else {
-        response.status(404).json({ error: `Item '${id}' Not Found` });
-    }
-}
-
-async function deleteItem(response, id) {
-    await reloadItems(JSONItemfile);
-    if (idExists(id)) {
-        const category = items[id].category;
-        const location = items[id].location;
-        const contact = items[id].contact;
-        const time = items[id].time;
-        const image = items[id].image;
-        delete items[id];
-        await saveItems();
-        response.json({ category: category, location: location, contact: contact, time: time, image: image, id: id });
-    } else {
-        response.status(404).json({ error: `Item '${id}' Not Found` });
-    }
-}
-
-function checkObjCategory(category) {
-    console.log(category)
-    let itemsInCategory = [];
-    for (let obj in items) {
-        console.log(obj);
-        console.log(items[obj]);
-        if (items[obj]['category'] === category) {
-            itemsInCategory.push(items[obj]);
-        }
-    }
-    console.log(itemsInCategory);
-    return itemsInCategory;
-}
-
-async function readItemsFinder(response, category) {
-    await reloadItems(JSONItemfile);
-    const itemsInCategory = checkObjCategory(category)
-    if (itemsInCategory.length > 0) {
-        response.status(200).write(JSON.stringify(itemsInCategory));
-        response.end();
-    } else {
-        // 404 - Not Found
-        response.status(404).json({ error: `No Items in this category` });
-    }
-}
-
-const app = express();
-
-app.use(logger('dev'));
-
-// NEW: Add json and urlencoded middleware
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-
-app.use('/client', express.static('client'));
-
-app.post('/login/create', (req, res) => {
-    const options = req.query;
-    createLogin(res, options.email, options.password);
-});
-
-app.get('/login/read', (req, res) => {
-    const options = req.query;
-    readLogin(res, options.email, options.password);
-});
-
-app.get('/reporter/read', (req, res) => {
-    const options = req.query;
-    readItem(res, options.category);
-});
-
-app.post('/reporter/create', (req, res) => {
-    const options = req.query;
-    createItem(res, options.category, options.location, options.contact, options.time, options.image, options.id);
-});
-
-app.put('/reporter/update', (req, res) => {
-    const options = req.query;
-    updateItem(res, options.category, options.location, options.contact, options.time, options.image, options.id);
-});
-
-app.delete('/reporter/delete', (req, res) => {
-    const options = req.query;
-    deleteItem(res, options.id);
-});
-
-app.get('/finder/read', (req, res) => {
-    const options = req.query;
-    readItemsFinder(res, options.category);
-});
-
-// AFTER : Create multer object
-const imageUpload = multer({
-    storage: multer.diskStorage(
-        {
-            destination: function (req, file, cb) {
-                cb(null, 'images/');
-            },
-            filename: function (req, file, cb) {
-                cb(
-                    null,
-                    new Date().valueOf() +
-                    '_' +
-                    file.originalname
-                );
+        this.app.post('/login/create', async(req, res) => {
+            try {
+                const { email, password } = req.query;
+                if (!(await this.emailExists(email))) {
+                    const person = await self.db.createLogin(email, password);
+                    res.send(JSON.stringify(person));
+                } else {
+                    res.status(500).send("Email Already in Use");
+                }
+            } catch (err) {
+                res.status(500).send(err);
             }
+        });
+
+        this.app.post('/reporter/create', async(req, res) => {
+            try {
+                const { category, location, contact, time, image, email } = req.query;
+                const id = Date.now();
+                const item = await self.db.createItem(category, location, contact, time, image, id, email);
+                res.send(JSON.stringify(item));
+            } catch (err) {
+                res.status(500).send(err);
+            }
+        });
+
+        this.app.put('/reporter/update', async(req, res) => {
+            console.log(res.query)
+            try {
+                const { location, contact, time, image, id } = req.query;
+                const item = await self.db.updateItem(location, contact, time, image, id);
+                res.send(JSON.stringify(item));
+            } catch (err) {
+                res.status(500).send(err);
+            }
+        });
+
+        this.app.put('/login/update', async(req, res) => {
+            try {
+                const { email } = req.query;
+                const item = await self.db.updateLogin(email);
+                res.send(JSON.stringify(item));
+            } catch (err) {
+                res.status(500).send(err);
+            }
+        });
+
+        this.app.delete('/reporter/delete', async(req, res) => {
+            try {
+                const { id } = req.query;
+                const item = await self.db.deleteItem(id);
+                res.send(JSON.stringify(item));
+            } catch (err) {
+                res.status(500).send(err);
+            }
+        });
+
+        this.app.get('/login/read', async(req, res) => {
+            try {
+                const { email, password } = req.query;
+                const login = await self.db.readLogin(email);
+                if (await this.emailExists(email) && this.checkPassword(login, password)) {
+                    res.send(JSON.stringify(login));
+                } else {
+                    res.status(500).send("Wrong password");
+                }
+            } catch (err) {
+                res.status(500).send(err);
+            }
+        });
+
+        this.app.get('/reporter/read', async(req, res) => {
+            try {
+                const { category } = req.query;
+                const resArray = await self.db.readItem(category);
+                let resObj = {};
+                for (let i = 0; i < resArray.length; ++i) {
+                    resObj[resArray[i]._id] = resArray[i];
+                }
+                res.send(JSON.stringify(resObj));
+            } catch (err) {
+                res.status(500).send(err);
+            }
+        });
+
+        // Image Upload Routes
+        this.app.post('/image', this.imageUpload.single('image'), (req, res) => {
+            res.json(req.file.filename);
+        });
+        // Image Get Routes
+        this.app.get('/image/:filename', (req, res) => {
+            const { filename } = req.params;
+            const dirname = path.resolve();
+            const fullfilepath = path.join(dirname, 'images/' + filename);
+            return res.sendFile(fullfilepath);
+        });
+    }
+
+    async initDb() {
+        this.db = new UlostDatabase(this.dburl);
+        await this.db.connect();
+    }
+
+    async start() {
+        await this.initRoutes();
+        await this.initDb();
+
+        const port = process.env.PORT || 3000;
+        this.app.listen(port, () => {
+            console.log(`UlostServer listening on port ${port}!`);
+        });
+    }
+
+    async emailExists(emailthing) {
+        let allEmails = await this.db.readAllLogins();
+        let newallEmails = allEmails.filter(x => x.email === emailthing);
+        if (newallEmails.length !== 0) {
+            return true;
+        } else {
+            return false;
         }
-    ),
-});
+    }
 
-// @TODO Add routes
-// Image Upload Routes
-app.post('/image', imageUpload.single('image'), (req, res) => {
-    console.log(req.file);
-    res.json('/image api');
-});
-// Image Get Routes
-app.get('/image/:filename', (req, res) => {
-    const { filename } = req.params;
-    const dirname = path.resolve();
-    const fullfilepath = path.join(dirname, 'images/' + filename);
-    return res.sendFile(fullfilepath);
-});
+    checkPassword(obj, password) {
+        return obj["password"] === password;
+    }
 
-app.get('*', (req, res) => {
-    console.log(req.path);
-    res.status(404).json({ message: 'U Req' });
-});
-
-let port = process.env.PORT;
-if (port === null || port === "") {
-    port = 3000;
 }
 
-app.listen(port, () => {
-    console.log(`U-Lost app listening at http://localhost:${port}`);
-});
+const server = new UlostServer(process.env.DATABASE_URL);
+server.start();

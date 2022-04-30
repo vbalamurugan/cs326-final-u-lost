@@ -103,8 +103,8 @@ input {
 }
 
 .cover.signuppage .sub-cover {
+    /* that is the width of the box */
     transform: translate3d(-640px, 0, 0);
-    /* tht is is the width of the box */
 }
 
 .sign-in-butn {

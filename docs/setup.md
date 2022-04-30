@@ -5,4 +5,4 @@
 4. Open broswer and run 'http://localhost:3000/client/login.html'.
 
 # Running U-Lost Web App using Heroku
-1. Go to https://immense-fjord-85744.herokuapp.com/client/login.html
+1. Go to https://glacial-scrubland-79174.herokuapp.com/client/login.html 

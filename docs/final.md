@@ -1,17 +1,64 @@
-# Team Name
-
-* U-Lost
-
-# Web Application Name
+# U-Lost
 
 * UMass Amherst Lost & Found 
 
-# Team Work for Milestone 2
+# Semester
 
-* Sahil was responsible for the '__POST__ __/reporter/create__' and '__PUT__ __/reporter/update__' api and the Heroku deployemnt.
-* Sidharth was responsible for the '__POST__ __/login/create__' and '__GET__ __/login/read__ api' and the Heroku deployemnt. 
-* Vikas was responsible for the '__GET__ __/finder/read__' api, page/button routing and writing the milestone 2 and setup documents.
-* Nishant was responsible for '__GET__ __/reporter/read__' and '__DELETE__ __/reporter/delete__' and cleaning up front end changes. 
+* Spring 2022
+
+# Overview
+
+* Our application is designed for students/faculty to find lost items. We have 2 roles in the application: Reporter and Finder.
+  Reporter is he one who reports a lost item, and the Finder will then be able to see all the reported items with their images on the app.
+  It is upto the Finder to select the item and notify the Reporter by clicking on "It is Mine!" button. Our idea is innovative since there exists 
+  no such app for UMass students/faculty.
+
+# Team Members
+
+* Sahil Joshi (sahiljoshi515)
+* Sidharth Saluja (SidharthSaluja)
+* Vikas Balamurugan (vbalamurugan)
+* Nishant Jain (nishant1549)
+
+# User Interface
+
+* SignUp page: Page will be used for signing up for the application. (If account does not exist)
+
+![1](https://user-images.githubusercontent.com/52909523/165815984-ce5e5b28-971c-4146-9a5c-52bd52d497aa.png)
+
+* SignIn page: Page will be used for signing in for the application. (If account already exists)
+
+![2](https://user-images.githubusercontent.com/52909523/165816132-e10ee510-0de4-487b-b985-5cc3db7a3387.png)
+
+* Selecting page: Page for selecting whether you want to report an item or find an item.
+
+![3](https://user-images.githubusercontent.com/52909523/165816196-f9377ef6-42c3-48a4-a736-6e39767881e7.png)
+
+* Categories page: Page for selecting the category you wish to find/report an item.
+
+![4](https://user-images.githubusercontent.com/52909523/165816282-7aeffcab-6bba-4430-b3b5-485b62f2d64d.png)
+
+* Reporter view 1: This is how the reporter sees the previously reported items.
+
+![5a](https://user-images.githubusercontent.com/52909523/165816324-e36359b7-7311-42bb-a9ad-da836ab45de2.png)
+
+![5b](https://user-images.githubusercontent.com/52909523/165816407-26cf7106-aacb-4ea8-914e-33d2551949fb.png)
+
+* Reporter view 2: This is what the reporter will see when they pclick on "Add+" button
+
+![Screen Shot 2022-04-28 at 13 53 54](https://user-images.githubusercontent.com/52909523/165816524-67bc4ebe-d8bc-48ef-8151-70c58f67ecb3.png)
+
+* Reporter view 3: This is what the reporter will see when they click on one of the items, they can update/delete an item as intended.
+
+![6](https://user-images.githubusercontent.com/52909523/165816665-4b88ecad-c980-4ee3-aa51-c3ce493a538c.png)
+
+* Finder view 1: This is what the finder sees the items that have been reported.
+
+![7](https://user-images.githubusercontent.com/52909523/165816741-431a553c-503c-45b5-8c47-928d0ed7d05c.png)
+
+* Finder view 2: This is what the finder sees when they click on one of the items. They can choose to notify the reporter by clicking on "It is Mine!"    button.
+
+![8](https://user-images.githubusercontent.com/52909523/165816872-a366a873-436b-4484-96dd-bb2c6679af63.png)
 
 # API Documentation
 
@@ -20,6 +67,7 @@
 ## Method | Requests
 * __POST__ __/login/create__
 * __GET__ __/login/read__
+* __PUT__ __/login/update__
 * __POST__ __/reporter/create__
 * __PUT__ __/reporter/update__
 * __DELETE__ __/reporter/delete__
@@ -51,6 +99,16 @@ Example Ouput :![getloginread_-_output](https://user-images.githubusercontent.co
 ### Response 
 * 200 - OK - The request has succeeded. Succesfuly retrieved login details. 
 * 404 - Resource Not Found - The requested resource does not exist. The message body will contain more information.
+
+## __PUT__ __/login/update__
+API request of type put to update honesty score for a reporter.
+### Input
+* email - email reporter had used for creating an account previously. 
+* Example Input :![3](https://user-images.githubusercontent.com/52909523/165873543-79c74bd9-02c4-429f-83fc-2e9704d259bc.png)
+* Before Update : ![0](https://user-images.githubusercontent.com/52909523/165873599-f1fcff09-aed6-483e-97ea-b2da9fd9754b.png)
+### Output
+* Example Output : ![4](https://user-images.githubusercontent.com/52909523/165873581-a9f6c4c7-1569-47d1-b43b-ff5ad5ade5b1.png)
+* After Update: ![1](https://user-images.githubusercontent.com/52909523/165873622-058a5b39-8bd4-4238-9a6a-f2de8e0e9b3a.png)
 
 ## __POST__ __/reporter/create__
 API request of type post to create an item for a particular category previously choosen by user.(In this instance the user is a reporter who wishes to report a lost item.)
@@ -167,7 +225,60 @@ Example Output :<img width="660" alt="Screen Shot 2022-04-09 at 4 38 22 PM" src=
 #### User can click on a particular item in the list and view its specific details. If it is the item they are searching for they can click on the 'It is mine!' button to let the reporter know. 
 <img width="970" alt="Screen Shot 2022-04-15 at 1 56 43 PM" src="https://user-images.githubusercontent.com/59256553/163604639-e6a4ca54-bd6c-4acb-be62-39fcc4cf6980.png">
 
-Note: We have not yet added the sending/saving of image since we are writing the information to file, and images cannot be written to a file (We couldn't find a decent way to do it). We will be implementing this feature in milestone 3 where we can save the images in a database.
+# Database Information
 
-# Heroku URL
-https://immense-fjord-85744.herokuapp.com/client/login.html
+* Items Collection: 
+
+{ _id: Number,
+     category: String,
+     location: String,
+     contact: String,
+     time: String,
+     image: String
+}
+
+* Login Collection: 
+
+{ _id: String,
+     email: String,
+     password: String,
+     honestyScore: Number
+    }
+
+# URL Routes/Mappings
+
+* Login/SignUp route: https://glacial-scrubland-79174.herokuapp.com/client/login.html (Used for authentication)
+* Reporter/Finder route: https://glacial-scrubland-79174.herokuapp.com/client/reporterFinder.html (Used to select the respective role)
+* Reporter Categories route: https://glacial-scrubland-79174.herokuapp.com/client/categoriesReporter.html (Reporter selects a category)
+* Finder Categories route: https://glacial-scrubland-79174.herokuapp.com/client/categoriesFinder.html (Finder selects a category)
+* Reporter route: https://glacial-scrubland-79174.herokuapp.com/client/itemListReporter.html (Reporter View)
+* Finder route: https://glacial-scrubland-79174.herokuapp.com/client/itemListFinder.html (Finder View)
+
+# Authentication/Authorization
+
+* We have not used proper authentication for this application. We are using MongoDB to store the user information, and then make create or read requests as intended. We know that this is tremendously risky for the users, but we thought that it was still a decent way to let the users create an account. https://glacial-scrubland-79174.herokuapp.com/client/login.html - is the route where user can signup for the application.
+
+# Division of Labor
+
+* Sahil was responsible for building the pages which Reporter and Finder will see individually.
+* Sidharth was responsible for building the Sign-in and Sign-up pages.
+* Vikas was responsible for building the "Categories" page.
+* Nishant was responsible for building the "Common" page which the Reporter and Finder will see.
+* Everyone contributed in creating the wireframes.
+
+* Sahil was responsible for the '__POST__ __/reporter/create__' and '__PUT__ __/reporter/update__' api and the Heroku deployemnt.
+* Sidharth was responsible for the '__POST__ __/login/create__' and '__GET__ __/login/read__ api' and the Heroku deployemnt. 
+* Vikas was responsible for the '__GET__ __/finder/read__' api, page/button routing and writing the milestone 2 and setup documents.
+* Nishant was responsible for '__GET__ __/reporter/read__' and '__DELETE__ __/reporter/delete__' and cleaning up front end changes. 
+
+* Sahil and Vikas were responsible to store and display the images of the items on the user interface.
+* Sahil worked on connecting the login/create, login/read to the backend and was also responsible for writing the milestone3.md and final.md.
+* Vikas worked on connecting the reporter/update to the backend.
+* Sidharth was responsible to display the data fetched from the backend to the frontend. He also connected the reporter/delete to the backend.
+* Nishant was reponsible for connecting the reporter/create route to backend and updating the "Honesty Score" for the reporter when the Finder clicks
+  on the "It is Mine!" button.
+* Sidharth and Vikas helped Nishant in debugging as well.
+
+# Conclusion 
+
+* Our team enjoyed working on this project throughout this semester. We learned how to store images on the server while linking them with some tag in the database and also learned proper design of code. We enjoyed learning Node.js and MongoDB as it was pretty intuitive and hope that it helps us while interning at different companies. One thing that might have helped us before we started the project was knowing how to do proper authentication. Since the instructor posted this resource pretty late, we decided to omit it. Some hurdles that we faced while building this project were spotting bugs (Why the code doesn't work as intended?), having trouble to push the project to heroku, and determining a way to store images on the server. We solved all these issues together by using stackoverflow and debugging. At the end, we are very proud of the application we have built, since each of us has taken equal effort to build this application.

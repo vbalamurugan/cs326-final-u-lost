@@ -25,3 +25,8 @@ input {
     background-color: #881c1c;
     color: white;
 }
+
+#imageid {
+    width: 400px;
+    height: 300px;
+}
